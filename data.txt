@@ -1,0 +1,25 @@
++------------------------+
+| tbl_Bus                   |
++------------------------+
+| PK | bus_id             |
++------------------------+
+| bus_plate_number |
+| bus_capacity          |
+| bus_occupied         |
+| bus_vacant             |
+| bus_update_time    |
++------------------------+
+================================
+GPS data to GSM
+kinahanlan ingani ang data nga madawat sa smart bro.
+================================
+
+in JSON format
+
+{
+          "bus_plate_number": "GHV294",
+          "lattitude": "10.296781234567",
+          "longitude": "123.88991234567",
+          "capacity": "30",
+          "vacant": "16"
+}

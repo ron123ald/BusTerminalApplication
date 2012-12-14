@@ -1,0 +1,8 @@
+D:\Development\Project\BusTerminalApplication\ServerSideApplication\BusTerminalServer\BusTerminalServer\bin\Debug\BusTerminalServer.exe
+D:\Development\Project\BusTerminalApplication\ServerSideApplication\BusTerminalServer\BusTerminalServer\bin\Debug\BusTerminalServer.pdb
+D:\Development\Project\BusTerminalApplication\ServerSideApplication\BusTerminalServer\BusTerminalServer\obj\x86\Debug\BusTerminalServer.Properties.Resources.resources
+D:\Development\Project\BusTerminalApplication\ServerSideApplication\BusTerminalServer\BusTerminalServer\obj\x86\Debug\BusTerminalServer.csproj.GenerateResource.Cache
+D:\Development\Project\BusTerminalApplication\ServerSideApplication\BusTerminalServer\BusTerminalServer\obj\x86\Debug\BusTerminalServer.exe
+D:\Development\Project\BusTerminalApplication\ServerSideApplication\BusTerminalServer\BusTerminalServer\obj\x86\Debug\BusTerminalServer.pdb
+D:\Development\Project\BusTerminalApplication\ServerSideApplication\BusTerminalServer\BusTerminalServer\obj\x86\Debug\BusTerminalServer.ConfigurationForm.resources
+D:\Development\Project\BusTerminalApplication\ServerSideApplication\BusTerminalServer\BusTerminalServer\obj\x86\Debug\BusTerminalServer.MainForm.resources
