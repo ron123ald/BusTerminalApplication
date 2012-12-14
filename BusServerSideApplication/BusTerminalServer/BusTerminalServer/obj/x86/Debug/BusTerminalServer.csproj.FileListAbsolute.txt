@@ -6,3 +6,5 @@ D:\Development\Project\BusTerminalApplication\ServerSideApplication\BusTerminalS
 D:\Development\Project\BusTerminalApplication\ServerSideApplication\BusTerminalServer\BusTerminalServer\obj\x86\Debug\BusTerminalServer.pdb
 D:\Development\Project\BusTerminalApplication\ServerSideApplication\BusTerminalServer\BusTerminalServer\obj\x86\Debug\BusTerminalServer.ConfigurationForm.resources
 D:\Development\Project\BusTerminalApplication\ServerSideApplication\BusTerminalServer\BusTerminalServer\obj\x86\Debug\BusTerminalServer.MainForm.resources
+D:\Development\Project\BusTerminalApplication\BusServerSideApplication\BusTerminalServer\BusTerminalServer\obj\x86\Debug\BusTerminalServer.exe
+D:\Development\Project\BusTerminalApplication\BusServerSideApplication\BusTerminalServer\BusTerminalServer\obj\x86\Debug\BusTerminalServer.pdb
