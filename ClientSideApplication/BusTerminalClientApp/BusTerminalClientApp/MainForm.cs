@@ -1,7 +1,6 @@
 ﻿namespace BusTerminalClientApp
 {
     using System;
-    using System.Configuration;
     using System.Threading;
     using System.Windows.Forms;
 
