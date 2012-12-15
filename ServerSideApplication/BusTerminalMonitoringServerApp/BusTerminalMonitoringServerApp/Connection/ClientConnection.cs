@@ -4,6 +4,7 @@
     using System.ComponentModel;
     using System.IO;
     using System.Net.Sockets;
+    using System.Text;
 
     #region MyRegion
     
@@ -19,7 +20,7 @@
 
     public class ClientConnection : IDisposable
     {
-        private string platenumber = string.Empty;
+        private string unique_key = string.Empty;
         /// <summary>
         /// Event that publish data to subscribers whenever the client disconnects
         /// from the server.
@@ -165,12 +166,12 @@
         /// <summary>
         /// this property serves as Unique Identification of ClientConnection
         /// </summary>
-        public string PlateNumber
+        public string UniqueKey
         {
             /// set the private variable platenumber to value
-            set { this.platenumber = value; }
+            set { this.unique_key = value; }
             /// get the value of platenumber
-            get { return this.platenumber; }
+            get { return this.unique_key; }
         }
         /// <summary>
         /// Dispose or Release the resources from this class

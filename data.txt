@@ -26,27 +26,27 @@ in JSON format
 
 client request
 {
-	"action": "request_connection"
+	"Action": "request_connection"
 }
 server response
 {
-	"action": "request_connection",
-	"client_unique_key": ""
+	"Action": "request_connection",
+	"UniqueKey": ""
 }
 
 
 server response
 {
-	"action": "transmit",
-	"lattitude": "",
-	"longitude": "",
-	"busdetails": "",
-	"occupied": "",
-	"vacancy": ""
+	"Action": "transmit",
+	"Lattitude": "",
+	"Longitude": "",
+	"BusDetails": "",
+	"Occupied": "",
+	"Vacancy": ""
 }
 
 
 client request
 {
-	"action": "request_disconnection"
+	"Action": "request_disconnection"
 }

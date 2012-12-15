@@ -65,7 +65,7 @@
             {
                 /// check if (key) platenumber is in the collection
                 /// check if platnumber is equal to item platenumber in any case
-                if (string.Compare(item.PlateNumber, platenumber, true) == 0)
+                if (string.Compare(item.UniqueKey, platenumber, true) == 0)
                     /// assign client variable to record value base on platnumber(key)
                     client = item;
             }
