@@ -4,8 +4,7 @@
     {
         RequestConnection,
         Transmit,
-        ClientApplicationStart,
-        ClientApplicationStop,
+        RequestDisconnection,
         Ping,
         Pong,
         Unknown
