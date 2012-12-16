@@ -3,12 +3,18 @@
 +------------------------+
 | PK | bus_id             |
 +------------------------+
-| bus_plate_number |
+| bus_number |
 | bus_capacity          |
 | bus_occupied         |
 | bus_vacant             |
 | bus_update_time    |
+| bus_lattitude    |
+| bus_longitude    |
+| bus_details    |
 +------------------------+
+
+{"data":[{"lattitude": "","longitude": "","details": ""},{"lattitude": "","longitude": "","details": ""},{"lattitude": "","longitude": "","details": ""}]}
+
 ================================
 GPS data to GSM
 kinahanlan ingani ang data nga madawat sa smart bro.
@@ -17,11 +23,13 @@ kinahanlan ingani ang data nga madawat sa smart bro.
 in JSON format
 
 {
-          "bus_plate_number": "GHV294",
+          "bus_number": "GHV294",
           "lattitude": "10.296781234567",
           "longitude": "123.88991234567",
           "capacity": "30",
-          "vacant": "16"
+          "vacant": "16",
+		  "occupied": "14",
+		  "details": ""
 }
 
 client request

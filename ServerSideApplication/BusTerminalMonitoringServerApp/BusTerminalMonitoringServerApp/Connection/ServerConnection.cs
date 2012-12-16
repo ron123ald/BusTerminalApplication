@@ -59,6 +59,8 @@
         /// <param name="e"></param>
         private void worker_DoWork(object sender, DoWorkEventArgs e)
         {
+            /// Start Listening to the Connection
+            this.listener.Start();
             /// this is the object that holds the connection of the client.
             TcpClient client = default(TcpClient);
             /// Unlimited Loop

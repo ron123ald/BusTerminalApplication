@@ -28,20 +28,34 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.WebViewControl = new Awesomium.Windows.Forms.WebControl();
             this.SuspendLayout();
+            // 
+            // WebViewControl
+            // 
+            this.WebViewControl.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.WebViewControl.Location = new System.Drawing.Point(0, 0);
+            this.WebViewControl.Name = "WebViewControl";
+            this.WebViewControl.Size = new System.Drawing.Size(963, 516);
+            this.WebViewControl.TabIndex = 0;
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(963, 516);
+            this.Controls.Add(this.WebViewControl);
+            this.MaximizeBox = false;
             this.Name = "MainForm";
-            this.Text = "Bus Terminal Monitoring";
+            this.Text = "Bus Terminal Monitoring | Client";
+            this.Load += new System.EventHandler(this.MainForm_Load);
             this.ResumeLayout(false);
 
         }
 
         #endregion
+
+        private Awesomium.Windows.Forms.WebControl WebViewControl;
     }
 }
 

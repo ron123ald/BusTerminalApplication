@@ -54,38 +54,23 @@
         /// retrieves client connection from Collection
         /// by passing platenumber params
         /// </summary>
-        /// <param name="platenumber">key of the ClientConnection Instance</param>
-        /// <returns>ClientConnection Instance</returns>
-        public ClientConnection Get(string platenumber)
+        /// <returns>List ClientConnection Instance</returns>
+        public List<ClientConnection> Get()
         {
-            /// set response client connection as default; (Null)
-            ClientConnection client = default(ClientConnection);
-            /// loop to all data in collection
-            foreach (ClientConnection item in this.collection)
-            {
-                /// check if (key) platenumber is in the collection
-                /// check if platnumber is equal to item platenumber in any case
-                if (string.Compare(item.UniqueKey, platenumber, true) == 0)
-                    /// assign client variable to record value base on platnumber(key)
-                    client = item;
-            }
-            return client;
+            /// return all records
+            return this.collection;
         }
         /// <summary>
         /// removes client connection from the collection
         /// by passing platenumber.
         /// </summary>
-        /// <param name="platenumber">key of client connection to remove</param>
-        public void Remove(string platenumber)
+        /// <param name="client">key of client connection to remove</param>
+        public void Remove(ClientConnection client)
         {
-            /// get client connection by platenumber
-            ClientConnection client = this.Get(platenumber);
             /// check if client is not Null
             if (client != null)
-            {
                 /// remove clientconnection Instance in collection
                 this.collection.Remove(client); 
-            }
         }
     }
 }

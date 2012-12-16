@@ -1,19 +1,31 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Windows.Forms;
-
-namespace BusTerminalMonitoringClientApp
+﻿namespace BusTerminalMonitoringClientApp
 {
+    using System.Windows.Forms;
+    using BusTerminalMonitoringClientApp.Connection;
+
     public partial class MainForm : Form
     {
+        private ClientConnection connection = default(ClientConnection);
         public MainForm()
         {
             InitializeComponent();
+        }
+
+        private void MainForm_Load(object sender, System.EventArgs e)
+        {
+            this.WebViewControl.LoadURL(FormUtility.GoogleMapUrl);
+
+            this.connection = new ClientConnection("localhost", 8000);
+            this.connection.TransmitEvent += new TransmittedDataEventHandler(connection_TransmitEvent);
+            this.connection.EstablishConnection();
+        }
+
+        private void connection_TransmitEvent(object sender, Connection.Event.TransmitEventArgs e)
+        {
+            this.Invoke((MethodInvoker)delegate
+            {
+                this.WebViewControl.LoadURL(e.ToString());
+            });
         }
     }
 }

@@ -1,5 +1,7 @@
 var infowindow = new google.maps.InfoWindow();
-var marker, i, map;
+var marker1, marker2, marker3, info, map;
+var bus1, bus2, bus3;
+var flag = false;
 
 $(document).ready(function(){
 	
@@ -7,33 +9,50 @@ $(document).ready(function(){
 
 });
 
+/// http://stackoverflow.com/questions/4474177/google-maps-panto
+/// http://stackoverflow.com/questions/6191714/google-maps-panto-onclick
+/// https://developers.google.com/maps/documentation/javascript/reference
+/// http://stackoverflow.com/questions/8024784/how-to-move-marker-in-google-maps-api
+/// http://stackoverflow.com/questions/4504636/google-maps-moving-marker-on-click
+/// http://localhost/BusMonitoringSystem/#10.29700&123.89693&hello
+
 /// this will method will initialize the hashchange event in the browser
 function InitializeHashHandler(){
 	$(window).bind('hashchange', function() {
 		// replace the '#' char to empty. this character will be find in the first index of the hash change value
 		var hash = (window.location.hash).replace("#", "");
+		console.log(hash);
 		// splitting value to get the lat , long and info 
 		// <url>http://www.tizag.com/javascriptT/javascript-string-split.php</url>
-		// Lattitude value
-		console.log(hash.split("&")[0]);
-		// Longitude value
-		console.log(hash.split("&")[1]);
+		// Bus number value
+		console.log("Bus number: " + hash.split("&")[0]);
+		// Bus Lattitude value
+		console.log("Bus lattitude: " + hash.split("&")[1]);
+		// Bus Longitude value
+		console.log("Bus longitude: " + hash.split("&")[2]);
 		// Bus information value
-		console.log(hash.split("&")[2]);
+		console.log("Bus Details: " + hash.split("&")[3]);
 
-		// send to function InitInitializeMap to set the Google map in the browser
-		InitializeMap(hash.split("&")[0], hash.split("&")[1]);
+		if(!flag) {
+			// send to function InitInitializeMap to set the Google map in the browser
+			InitializeMap(hash.split("&")[1], hash.split("&")[2]);
+			flag = true;
+		}
 
-		// send to function InitializeMapMarker to set the Google map's marker
-		InitializeMapMarker(hash.split("&")[0], hash.split("&")[1]);
+		setBusNumber(hash.split("&")[0]);
 
-		// check if the variable this.i (in global declaration) is null
-		// purpose of this checking is to see if the the Information has been set or not
-		// if the information is set there for we will not update it.
-		// if not. update.
-		if(this.i == null) {
+		if(bus1 == hash.split("&")[0]){
+			moveBus1(hash.split("&")[1], hash.split("&")[2]);
 			// send to function InitializeMapMarkerInformation to set Google map marker's information
-			InitializeMapMarkerInformation(hash.split("&")[2]);
+			InitializeMapMarkerInformation(marker1, hash.split("&")[3]);
+		} else if(bus2 == hash.split("&")[0]){
+			moveBus2(hash.split("&")[1], hash.split("&")[2]);
+			// send to function InitializeMapMarkerInformation to set Google map marker's information
+			InitializeMapMarkerInformation(marker2, hash.split("&")[3]);
+		} else if(bus3 == hash.split("&")[0]){
+			moveBus3(hash.split("&")[1], hash.split("&")[2]);
+			// send to function InitializeMapMarkerInformation to set Google map marker's information
+			InitializeMapMarkerInformation(marker3, hash.split("&")[3]);
 		}
 	});
 }
@@ -47,21 +66,76 @@ function InitializeMap(lattitude, longitude){
 	});  
 }
 
-function InitializeMapMarker(lattitude, longitude){
+function InitializeMapMarker1(lattitude, longitude){
   
-	marker = new google.maps.Marker({
+	marker1 = new google.maps.Marker({
 		position: new google.maps.LatLng(lattitude, longitude),
 		map: map,
 		title: "Bus"
 	});
 }
 
-function InitializeMapMarkerInformation(busInfo){
+function InitializeMapMarker2(lattitude, longitude){
+  
+	marker2 = new google.maps.Marker({
+		position: new google.maps.LatLng(lattitude, longitude),
+		map: map,
+		title: "Bus"
+	});
+}
 
-	google.maps.event.addListener(marker, 'click', (function (marker, i) {
+function InitializeMapMarker3(lattitude, longitude){
+  
+	marker3 = new google.maps.Marker({
+		position: new google.maps.LatLng(lattitude, longitude),
+		map: map,
+		title: "Bus"
+	});
+}
+
+function InitializeMapMarkerInformation(marker, busInfo){
+
+	google.maps.event.addListener(marker, 'click', (function (marker, info) {
 		return function () {
 			infowindow.setContent(busInfo);
 			infowindow.open(map, marker);
 		}
-	})(marker, i));
+	})(marker, info));
+}
+
+function moveBus1(lattitude, longitude) {
+    marker1.setPosition(new google.maps.LatLng(lattitude, longitude));
+    map.panTo(new google.maps.LatLng(lattitude, longitude));
+}
+
+function moveBus2(lattitude, longitude) {
+    marker2.setPosition(new google.maps.LatLng(lattitude, longitude));
+    map.panTo(new google.maps.LatLng(lattitude, longitude));
+}
+
+function moveBus3(lattitude, longitude) {
+    marker3.setPosition(new google.maps.LatLng(lattitude, longitude));
+    map.panTo(new google.maps.LatLng(lattitude, longitude));
+}
+
+function moveBus(marker, lattitude, longitude) {
+    marker.setPosition(new google.maps.LatLng(lattitude, longitude));
+    map.panTo(new google.maps.LatLng(lattitude, longitude));
+}
+
+function setBusNumber(busnumber, lattitude, longitude){
+	/// set bus number
+	if(bus1 == undefined || bus1 == null || bus1 == ''){
+		bus1 = busnumber;
+		// initialize marker1
+		InitializeMapMarker1(lattitude, longitude);
+	} else if(bus2 == undefined || bus2 == null || bus2 == ''){
+		bus2 = busnumber;
+		// initialize marker2
+		InitializeMapMarker2(lattitude, longitude);
+	} else if(bus3 == undefined || bus3 == null || bus3 == ''){
+		bus3 = busnumber;
+		// initialize marker3
+		InitializeMapMarker3(lattitude, longitude);
+	}
 }
