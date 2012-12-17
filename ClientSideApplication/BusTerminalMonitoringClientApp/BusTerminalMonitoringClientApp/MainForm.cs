@@ -13,6 +13,7 @@
 
         private void MainForm_Load(object sender, System.EventArgs e)
         {
+
             this.WebViewControl.LoadURL(FormUtility.GoogleMapUrl);
 
             this.connection = new ClientConnection("localhost", 8000);
