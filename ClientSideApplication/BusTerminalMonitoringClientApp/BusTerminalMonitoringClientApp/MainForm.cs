@@ -35,8 +35,18 @@
             /// set eventhandlers
             this.connection.TransmitEvent += new TransmittedDataEventHandler(connection_TransmitEvent);
             this.connection.DisconnectedEvent += new DisconnectEventHandler(connection_DisconnectedEvent);
+            this.connection.ErrorEvent += new ErrorEventHandler(connection_ErrorEvent);
             /// start connection
             this.connection.EstablishConnection();
+        }
+        /// <summary>
+        /// EventHandler method
+        /// this will trigger whenever an error occured in the connection
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void connection_ErrorEvent(object sender, Connection.Event.ConnectionErrorEventArgs e)
+        {
         }
         /// <summary>
         /// EventHandler method.
@@ -69,6 +79,13 @@
                 if (string.Compare(this.WebViewControl.TargetURL, e.ToString(), true) != 0)
                     this.WebViewControl.LoadURL(e.ToString()); 
             });
+        }
+
+        protected override void OnClosing(System.ComponentModel.CancelEventArgs e)
+        {
+            this.connection.Dispose();
+
+            base.OnClosing(e);
         }
     }
 }

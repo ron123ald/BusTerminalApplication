@@ -5,7 +5,7 @@ namespace BusTerminalMonitoringClientApp.Connection
     {
         public static string GoogleMapUrl
         {
-            get { return "http://localhost/BusMonitoringSystem/"; }
+            get { return "http://localhost:81/BusMonitoringSystem/"; }
         }
         /// <summary>
         /// return Action type base from the data

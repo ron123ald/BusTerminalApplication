@@ -50,6 +50,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Connection\ClientConnection.cs" />
+    <Compile Include="Connection\Event\ConnectionErrorEventArgs.cs" />
     <Compile Include="Connection\Event\TransmitEventArgs.cs" />
     <Compile Include="Connection\FormUtility.cs" />
     <Compile Include="MainForm.cs">

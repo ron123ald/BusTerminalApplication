@@ -8,9 +8,14 @@
 
     public delegate void TransmittedDataEventHandler(object sender, TransmitEventArgs e);
     public delegate void DisconnectEventHandler(object sender, EventArgs e);
+    public delegate void ErrorEventHandler(object sender, ConnectionErrorEventArgs e);
 
     public class ClientConnection : IDisposable
     {
+        /// <summary>
+        /// Error EventHandler
+        /// </summary>
+        public event ErrorEventHandler ErrorEvent;
         /// <summary>
         /// Data transmit to process
         /// </summary>
@@ -99,48 +104,59 @@
         /// <param name="e"></param>
         private void worker_DoWork(object sender, DoWorkEventArgs e)
         {
-            /// set private variable client with client params
-            this.client = new TcpClient(this.Address, this.Port);
-            /// create new instance of NetworkStream by getting client's data stream 
-            this.stream = this.client.GetStream();
-            /// create new instance of StreamReader by passing the NetWorkStream instance
-            this.reader = new StreamReader(this.stream);
-            /// create new instance of StreamWriter by passing the NetWorkStream instance
-            this.writer = new StreamWriter(this.stream);
             /// Intialize data (string) with an empty string instance;
             string data = string.Empty;
-            /// Unlimited loop
-            /// to read all transmitted data by client side application
-            while (true)
+            try
             {
-                try
+                /// set private variable client with client params
+                this.client = new TcpClient(this.Address, this.Port);
+                /// create new instance of NetworkStream by getting client's data stream 
+                this.stream = this.client.GetStream();
+                /// create new instance of StreamReader by passing the NetWorkStream instance
+                this.reader = new StreamReader(this.stream);
+                /// create new instance of StreamWriter by passing the NetWorkStream instance
+                this.writer = new StreamWriter(this.stream);
+            }
+            catch (Exception ex)
+            {
+                ErrorEvent(this, new ConnectionErrorEventArgs(ex.Message));
+                return;
+            }
+            finally
+            {
+                /// Unlimited loop
+                /// to read all transmitted data by client side application
+                while (true)
                 {
-                    /// read transmitted data 
-                    /// debugger will stop in this line to wait for data, 
-                    /// and continue once there is a data transmitted
-                    data = this.reader.ReadLine();
-                    /// check if data is not Null or Empty
-                    if (!string.IsNullOrEmpty(data))
+                    try
                     {
-                        /// Get ActionType of the data
-                        switch (FormUtility.GetActionType(data))
+                        /// read transmitted data 
+                        /// debugger will stop in this line to wait for data, 
+                        /// and continue once there is a data transmitted
+                        data = this.reader.ReadLine();
+                        /// check if data is not Null or Empty
+                        if (!string.IsNullOrEmpty(data))
                         {
-                            case ActionType.Transmit:
-                                TransmitEvent(this, new TransmitEventArgs(data));
-                                break;
-                            case ActionType.Diconnect:
-                                DisconnectedEvent(this, new EventArgs());
-                                break;
-                            case ActionType.Unknown:
-                                break;
-                            default: break;
-                        } 
+                            /// Get ActionType of the data
+                            switch (FormUtility.GetActionType(data))
+                            {
+                                case ActionType.Transmit:
+                                    TransmitEvent(this, new TransmitEventArgs(data));
+                                    break;
+                                case ActionType.Diconnect:
+                                    DisconnectedEvent(this, new EventArgs());
+                                    break;
+                                case ActionType.Unknown:
+                                    break;
+                                default: break;
+                            }
+                        }
                     }
-                }
-                catch (Exception ex)
-                {
-                    e.Result = ex;
-                    break;
+                    catch (Exception ex)
+                    {
+                        e.Result = ex;
+                        break;
+                    }
                 }
             }
         }
