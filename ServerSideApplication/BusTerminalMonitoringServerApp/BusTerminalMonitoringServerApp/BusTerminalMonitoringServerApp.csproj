@@ -59,7 +59,7 @@
     <Compile Include="Connection\ServerConnection.cs" />
     <Compile Include="Connection\ServerUtility.cs" />
     <Compile Include="Database\Bus.cs" />
-    <Compile Include="Database\BusDBContext.cs" />
+    <Compile Include="Database\BusDatabaseContext.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>

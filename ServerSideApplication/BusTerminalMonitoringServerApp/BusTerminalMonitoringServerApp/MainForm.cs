@@ -12,6 +12,12 @@
     public partial class MainForm : Form
     {
         /// <summary>
+        /// private instance of Bus database 
+        /// this will connect to phpmyadmin mysql database 'bus'
+        /// see App.config file for the connection string 
+        /// </summary>
+        private BusDatabaseContext dbcontext = default(BusDatabaseContext);
+        /// <summary>
         /// private Instance of ServerConnection
         /// </summary>
         private ServerConnection connection = default(ServerConnection);
@@ -78,6 +84,19 @@
             /// Parse e.Message to Bus 
             /// then save to db and sumbit to clients
             Bus bus = ServerUtility.ParseData(e.Message);
+            /// select if record of bus_number exists in bus database
+            List<Bus> busses = this.dbcontext.Select(bus.BusNumber);
+            if (busses.Count <= 0)
+            {
+                /// insert record in database
+                this.dbcontext.Insert(bus);
+            }
+            else
+            {
+                /// update record in database
+                this.dbcontext.Update(bus);
+            }
+
             /// Get All the clients
             List<ClientConnection> clients = (ServerCollection.InstanceContext).Get();
             /// Iterate to all clients and transmit bus data
@@ -117,6 +136,10 @@
             this.connection.NewRequestConnectionEvent += new RequestConnectionEventHandler(connection_NewRequestConnectionEvent);
 
             ServerUtility.Log(this.ServerLogBox, string.Format("Server is running @{0}:8000", IPAddress.Any.ToString())); 
+            #endregion
+
+            #region Database Context Initialization
+            this.dbcontext = new BusDatabaseContext();
             #endregion
         }
         /// <summary>
