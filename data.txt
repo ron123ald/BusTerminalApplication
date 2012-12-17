@@ -23,13 +23,13 @@ kinahanlan ingani ang data nga madawat sa smart bro.
 in JSON format
 
 {
-          "bus_number": "GHV294",
-          "lattitude": "10.296781234567",
-          "longitude": "123.88991234567",
-          "capacity": "30",
-          "vacant": "16",
-		  "occupied": "14",
-		  "details": ""
+	\"bus_number\": \"GHV294\",
+	\"lattitude\": \"10.296781234567\",
+	\"longitude\": \"123.88991234567\",
+	\"capacity\": \"30\",
+	\"vacant\": \"16\",
+	\"occupied\": \"14\",
+	\"details\": \"\"
 }
 
 client request
@@ -58,3 +58,8 @@ client request
 {
 	"Action": "request_disconnection"
 }
+
+
++CMGR: "REC READ","002B003600330039003300320032003000310037003900310033",,"12/12/17,14:23:18+32"
+00480065006C006C006F00200074006800650072006500200073006D00610072007400620072006F0061006400620061006E006400200070006C006500610073006400200077006F0072002E
+

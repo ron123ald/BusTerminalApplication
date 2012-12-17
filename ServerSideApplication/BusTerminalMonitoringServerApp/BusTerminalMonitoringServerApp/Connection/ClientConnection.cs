@@ -182,16 +182,28 @@
         public void Dispose()
         {
             /// close all streams
-            this.client.Close();
-            this.stream.Close();
-            this.reader.Close();
-            this.writer.Close();
-            /// set client's connection to default; (Null)
-            this.client = default(TcpClient);
             /// Dispose all streams
-            this.stream.Dispose();
-            this.reader.Dispose();
-            this.writer.Dispose();
+            if (this.client != null)
+            {
+                this.client.Close();
+                /// set client's connection to default; (Null)
+                this.client = default(TcpClient);
+            }
+            if (this.stream != null)
+            {
+                this.stream.Close();
+                this.stream.Dispose();
+            }
+            if (this.reader != null)
+            {
+                this.reader.Close();
+                this.reader.Dispose();
+            }
+            if (this.writer != null)
+            {
+                this.writer.Close();
+                this.writer.Dispose();
+            }
         }
     }
 }

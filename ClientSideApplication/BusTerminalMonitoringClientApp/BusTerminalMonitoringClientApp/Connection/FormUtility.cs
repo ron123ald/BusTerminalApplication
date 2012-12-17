@@ -16,12 +16,10 @@ namespace BusTerminalMonitoringClientApp.Connection
         {
             ActionType type = default(ActionType);
 
-            if (data.ToLower().Contains("request_connection"))
-                type = ActionType.RequestConnection;
-            else if (data.ToLower().Contains("transmit"))
+            if (data.ToLower().Contains("transmit"))
                 type = ActionType.Transmit;
-            else if (data.ToLower().Contains("request_disconnection"))
-                type = ActionType.RequestDisconnection;
+            else if (data.ToLower().Contains("diconnect"))
+                type = ActionType.Diconnect;
             else if (data.ToLower().Contains("ping"))
                 type = ActionType.Ping;
             else if (data.ToLower().Contains("pong"))
@@ -35,9 +33,8 @@ namespace BusTerminalMonitoringClientApp.Connection
 
     public enum ActionType
     {
-        RequestConnection,
         Transmit,
-        RequestDisconnection,
+        Diconnect,
         Ping,
         Pong,
         Unknown

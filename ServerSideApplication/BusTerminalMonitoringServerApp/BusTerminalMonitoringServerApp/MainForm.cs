@@ -1,11 +1,13 @@
 ﻿namespace BusTerminalMonitoringServerApp
 {
     using System.Collections.Generic;
+    using System.Configuration;
     using System.Net;
     using System.Windows.Forms;
     using BusTerminalMonitoringServerApp.Connection;
     using BusTerminalMonitoringServerApp.Connection.Collection;
     using BusTerminalMonitoringServerApp.Database;
+    using BusTerminalMonitoringServerApp.Serial;
 
     public partial class MainForm : Form
     {
@@ -14,6 +16,10 @@
         /// </summary>
         private ServerConnection connection = default(ServerConnection);
         /// <summary>
+        /// Instance of SerialPort connection
+        /// </summary>
+        private SerialConnection serial     = default(SerialConnection);
+        /// <summary>
         /// public Constructor for this Class MainForm
         /// </summary>
         public MainForm()
@@ -21,23 +27,8 @@
             /// built-in; auto generated method
             InitializeComponent();
         }
-        /// <summary>
-        /// this is an EventHandler method
-        /// this will trigger whenever the MainForm Loads
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void Main_Load(object sender, System.EventArgs e)
-        {
-            /// Create new instance of ServerConnection 
-            /// by passing IPAddress.Any and Port 8081
-            this.connection = new ServerConnection(IPAddress.Any, 8000);
-            this.connection.EstablishConnection();
-            /// Initialize EventHandler "NewRequestConnectionEvent" to subscribe.
-            this.connection.NewRequestConnectionEvent += new RequestConnectionEventHandler(connection_NewRequestConnectionEvent);
 
-            ServerUtility.Log(this.ServerLogBox, string.Format("Server is running @{0}:8000", IPAddress.Any.ToString()));
-        }
+        #region ServerConnection EventHandlers
         /// <summary>
         /// this is an EventHandler Method of "NewRequestConnectionEvent" from ServerConnection Class
         /// this will triggers whenever the "connection" instance publish a "NewRequestConnectionEvent"
@@ -72,87 +63,118 @@
             (ServerCollection.InstanceContext).Remove((ClientConnection)sender);
             /// dispose all resources that client connection used.
             ((ClientConnection)sender).Dispose();
-        }
+        } 
+        #endregion
+
+        #region Serial Connection EventHandlers
         /// <summary>
-        /// test Invoke 1
+        /// 
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void InvokeButton1_Click(object sender, System.EventArgs e)
+        private void serial_NewMessageEvent(object sender, Serial.Event.NewMessageEventArgs e)
         {
-            Bus bus = new Bus
-            {
-                BusNumber = this.busdetails1.Text, Capacity = this.capacity1.Text,
-                Lattitude = this.lattitude1.Text, Longitude = this.longitude1.Text,
-                Occupied = this.occupied1.Text, Vacancy = this.vacancy1.Text, Details = "", 
-                Action = ActionType.Transmit
-            };
+            ServerUtility.Log(this.ServerLogBox, e.Message);
+            /// Parse e.Message to Bus 
+            /// then save to db and sumbit to clients
+            Bus bus = ServerUtility.ParseData(e.Message);
+            /// Get All the clients
             List<ClientConnection> clients = (ServerCollection.InstanceContext).Get();
+            /// Iterate to all clients and transmit bus data
             clients.ForEach(delegate(ClientConnection client)
             {
                 client.Transmit(bus.ToString());
             });
-
             /// Log that Client disconnects
-            ServerUtility.Log(this.ServerLogBox, string.Format("Send to Clients : {0}", bus.ToString()));
+            ServerUtility.Log(this.ServerLogBox, string.Format("Send to Clients : {0}", bus.ToString()));    
         }
+        #endregion
 
-        private void InvokeButton2_Click(object sender, System.EventArgs e)
+        #region MainForm EventHandlers
+        /// <summary>
+        /// this is an EventHandler method
+        /// this will trigger whenever the MainForm Loads
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Main_Load(object sender, System.EventArgs e)
         {
-            Bus bus = new Bus
-            {
-                BusNumber = this.busdetails2.Text,
-                Capacity = this.capacity2.Text,
-                Lattitude = this.lattitude2.Text,
-                Longitude = this.longitude2.Text,
-                Occupied = this.occupied2.Text,
-                Vacancy = this.vacancy2.Text,
-                Details = "",
-                Action = ActionType.Transmit
-            };
-            List<ClientConnection> clients = (ServerCollection.InstanceContext).Get();
-            clients.ForEach(delegate(ClientConnection client)
-            {
-                client.Transmit(bus.ToString());
-            });
+            #region Serial Connection Initialization
+            /// Instanciate serial connection
+            this.serial = new SerialConnection(ConfigurationManager.AppSettings.Get("PORTNAME"), 9600, System.IO.Ports.Parity.None, System.IO.Ports.StopBits.One);
+            /// Initialize NewMessageEvent
+            this.serial.NewMessageEvent += new NewMessageEventHandler(serial_NewMessageEvent);
+            /// Start Connection
+            this.serial.EstablistConnection(); 
+            #endregion
 
-            /// Log that Client disconnects
-            ServerUtility.Log(this.ServerLogBox, string.Format("Send to Clients : {0}", bus.ToString()));
+            #region Server Connection Initialization
+            /// Create new instance of ServerConnection 
+            /// by passing IPAddress.Any and Port 8081
+            this.connection = new ServerConnection(IPAddress.Any, 8000);
+            this.connection.EstablishConnection();
+            /// Initialize EventHandler "NewRequestConnectionEvent" to subscribe.
+            this.connection.NewRequestConnectionEvent += new RequestConnectionEventHandler(connection_NewRequestConnectionEvent);
+
+            ServerUtility.Log(this.ServerLogBox, string.Format("Server is running @{0}:8000", IPAddress.Any.ToString())); 
+            #endregion
         }
-
-        private void InvokeButton3_Click(object sender, System.EventArgs e)
-        {
-            Bus bus = new Bus
-            {
-                BusNumber = this.busdetails3.Text,
-                Capacity = this.capacity3.Text,
-                Lattitude = this.lattitude3.Text,
-                Longitude = this.longitude3.Text,
-                Occupied = this.occupied3.Text,
-                Vacancy = this.vacancy3.Text,
-                Details = "",
-                Action = ActionType.Transmit
-            };
-            List<ClientConnection> clients = (ServerCollection.InstanceContext).Get();
-            clients.ForEach(delegate(ClientConnection client)
-            {
-                client.Transmit(bus.ToString());
-            });
-
-            /// Log that Client disconnects
-            ServerUtility.Log(this.ServerLogBox, string.Format("Send to Clients : {0}", bus.ToString()));
-        }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-
         }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ClearLogStripMenuItem_Click(object sender, System.EventArgs e)
+        {
+            this.ServerLogBox.Clear();
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void exitToolStripMenuItem_Click(object sender, System.EventArgs e)
+        {
+            this.Close();
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void DateTimer_Tick(object sender, System.EventArgs e)
+        {
+            this.DateTimeLabel.Text = System.DateTime.Now.ToString();
+        } 
+        #endregion
 
+        #region Protected Override Methods
         protected override void OnClosing(System.ComponentModel.CancelEventArgs e)
         {
+            /// Get All the clients
+            List<ClientConnection> clients = (ServerCollection.InstanceContext).Get();
+            /// Iterate to all clients and transmit bus data
+            foreach(ClientConnection client in clients)
+            {
+                /// send disconnection to client
+                client.Transmit(string.Format("action={0}", ActionType.Diconnect.ToString()));
+                /// dispose resources used by client
+                client.Dispose();
+                /// remove client from the collection
+                (ServerCollection.InstanceContext).Remove(client);
+            }
+            this.serial.Dispose();
             /// close all the clients that are connected with the server
             base.OnClosing(e);
         }
-
+        #endregion
     }
 }

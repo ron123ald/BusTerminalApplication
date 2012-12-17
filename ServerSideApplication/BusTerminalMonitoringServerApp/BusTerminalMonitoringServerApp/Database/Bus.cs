@@ -12,6 +12,7 @@
         private string _occupied = string.Empty;
         private string _details = string.Empty;
         private ActionType _action = default(ActionType);
+
         public Bus()
         {
         }

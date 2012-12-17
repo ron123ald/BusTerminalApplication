@@ -7,10 +7,18 @@
     using BusTerminalMonitoringClientApp.Connection.Event;
 
     public delegate void TransmittedDataEventHandler(object sender, TransmitEventArgs e);
+    public delegate void DisconnectEventHandler(object sender, EventArgs e);
 
     public class ClientConnection : IDisposable
     {
+        /// <summary>
+        /// Data transmit to process
+        /// </summary>
         public event TransmittedDataEventHandler TransmitEvent;
+        /// <summary>
+        /// this will fire whenever the server gets disconnected
+        /// </summary>
+        public event DisconnectEventHandler DisconnectedEvent;
         /// <summary>
         /// TcpClient holds the connection for client
         /// </summary>
@@ -35,6 +43,9 @@
         private string address = string.Empty;
         private int port = 0;
 
+        /// <summary>
+        /// private constructor
+        /// </summary>
         private ClientConnection()
         {
             /// Create new Instance of BackgroundWorker
@@ -44,7 +55,11 @@
             /// Initialize RunWorkerCompleted EventHandler
             this.worker.RunWorkerCompleted += new RunWorkerCompletedEventHandler(worker_RunWorkerCompleted);
         }
-
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="address"></param>
+        /// <param name="port"></param>
         public ClientConnection(string address, int port) : this()
         {
             this.Address = address;
@@ -112,6 +127,9 @@
                         {
                             case ActionType.Transmit:
                                 TransmitEvent(this, new TransmitEventArgs(data));
+                                break;
+                            case ActionType.Diconnect:
+                                DisconnectedEvent(this, new EventArgs());
                                 break;
                             case ActionType.Unknown:
                                 break;

@@ -17,7 +17,17 @@
 
             this.connection = new ClientConnection("localhost", 8000);
             this.connection.TransmitEvent += new TransmittedDataEventHandler(connection_TransmitEvent);
+            this.connection.DisconnectedEvent += new DisconnectEventHandler(connection_DisconnectedEvent);
             this.connection.EstablishConnection();
+        }
+
+        private void connection_DisconnectedEvent(object sender, System.EventArgs e)
+        {
+            this.Invoke((MethodInvoker)delegate
+            {
+                this.connection.Dispose();
+                this.Close();
+            });
         }
 
         private void connection_TransmitEvent(object sender, Connection.Event.TransmitEventArgs e)

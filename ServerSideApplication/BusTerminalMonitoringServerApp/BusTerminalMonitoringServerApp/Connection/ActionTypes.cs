@@ -2,9 +2,8 @@
 {
     public enum ActionType
     {
-        RequestConnection,
         Transmit,
-        RequestDisconnection,
+        Diconnect,
         Ping,
         Pong,
         Unknown
