@@ -60,13 +60,25 @@
         /// <param name="message"></param>
         public static void Log(RichTextBox control, string message)
         {
+            string formatted = string.Format("\r\n[{0}] {1}", DateTime.Now.ToString("MM-dd-yy hh:mm:ss"), message);
             /// Invoke the message to the controll
             /// http://msdn.microsoft.com/en-us/library/system.windows.forms.methodinvoker.aspx
-            control.Invoke(((MethodInvoker)delegate
+            if (!control.IsDisposed)
             {
-                control.AppendText(string.Format("\r\n[{0}] {1}", DateTime.Now.ToString("MM-dd-yy hh:mm:ss"), message));
-                control.ScrollToCaret();
-            }));
+                if (!control.InvokeRequired)
+                {
+                    control.AppendText(formatted);
+                    control.ScrollToCaret();
+                }
+                else
+                {
+                    control.Invoke(((MethodInvoker)delegate
+                    {
+                        control.AppendText(formatted);
+                        control.ScrollToCaret();
+                    }));
+                } 
+            }
         }
     }
 }

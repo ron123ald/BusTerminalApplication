@@ -47,6 +47,21 @@
         /// <param name="e"></param>
         private void connection_ErrorEvent(object sender, Connection.Event.ConnectionErrorEventArgs e)
         {
+            if (!this.InvokeRequired)
+            {
+                /// Show error message
+                MessageBox.Show(this, e.ErrorMessage, "Error occured while connecting", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                this.Close();
+            }
+            else
+            {
+                this.Invoke((MethodInvoker)delegate
+                {
+                    /// Show error message
+                    MessageBox.Show(this, e.ErrorMessage, "Error occured while connecting", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    this.Close();
+                });
+            }
         }
         /// <summary>
         /// EventHandler method.
@@ -80,11 +95,14 @@
                     this.WebViewControl.LoadURL(e.ToString()); 
             });
         }
-
+        /// <summary>
+        /// Dispose the resources used first. before closing the application
+        /// </summary>
+        /// <param name="e"></param>
         protected override void OnClosing(System.ComponentModel.CancelEventArgs e)
         {
+            /// dispose
             this.connection.Dispose();
-
             base.OnClosing(e);
         }
     }

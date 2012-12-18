@@ -190,14 +190,24 @@
         /// </summary>
         public void Dispose()
         {
-            /// close all streams
-            this.stream.Close();
-            this.reader.Close();
-            this.writer.Close();
-            /// Dispose all streams
-            this.stream.Dispose();
-            this.reader.Dispose();
-            this.writer.Dispose();
+            if (this.stream != null)
+            {
+                /// close all streams
+                this.stream.Close();
+                /// Dispose all streams
+                this.stream.Dispose();
+            }
+            if (this.reader != null)
+            {
+                this.reader.Close();
+                this.reader.Dispose();
+            }
+
+            if (this.writer != null)
+            {
+                this.writer.Close();
+                this.writer.Dispose(); 
+            }
         }
     }
 }

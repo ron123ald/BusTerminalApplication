@@ -15,8 +15,23 @@ using MySql.Data.MySqlClient;
         public BusDatabaseContext()
         {
             this.connection = new MySqlConnection(ConfigurationManager.AppSettings.Get("ConnectionString"));
-            /// Open connection instance
-            this.connection.Open();
+        }
+        /// <summary>
+        /// Start Connection in MySqlServer
+        /// </summary>
+        /// <returns></returns>
+        public bool EstablishConnection()
+        {
+            try
+            {
+                /// Open connection instance
+                this.connection.Open();
+                return true;
+            }
+            catch 
+            {
+            }
+            return false;
         }
         /// <summary>
         /// Select Query Statement 

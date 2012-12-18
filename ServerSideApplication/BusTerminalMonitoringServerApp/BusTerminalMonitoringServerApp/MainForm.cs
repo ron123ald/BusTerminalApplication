@@ -74,7 +74,35 @@
 
         #region Serial Connection EventHandlers
         /// <summary>
-        /// 
+        /// EventHandler method
+        /// this will triggers whenever there is an error connecting to Serial
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void serial_ErrorEvent(object sender, Serial.Event.ConnectionErrorEventArgs e)
+        {
+            if (!this.IsDisposed)
+            {
+                if (!this.InvokeRequired)
+                {
+                    /// Show error message
+                    MessageBox.Show(this, e.ErrorMessage, "Error occured while connecting", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    this.Close();
+                }
+                else
+                {
+                    this.Invoke((MethodInvoker)delegate
+                    {
+                        /// Show error message
+                        MessageBox.Show(this, e.ErrorMessage, "Error occured while connecting", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        this.Close();
+                    });
+                } 
+            }
+        }
+        /// <summary>
+        /// EventHanlder method
+        /// this will triggers whenever there is New Message from serial
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -123,24 +151,31 @@
             this.serial = new SerialConnection(ConfigurationManager.AppSettings.Get("PORTNAME"), 9600, System.IO.Ports.Parity.None, System.IO.Ports.StopBits.One);
             /// Initialize NewMessageEvent
             this.serial.NewMessageEvent += new NewMessageEventHandler(serial_NewMessageEvent);
-            /// Start Connection
-            this.serial.EstablistConnection(); 
+            this.serial.ErrorEvent += new ErrorEventHandler(serial_ErrorEvent);
+            /// Start Serial Connection
+            bool flag = this.serial.EstablistConnection(); 
             #endregion
 
             #region Server Connection Initialization
-            /// Create new instance of ServerConnection 
-            /// by passing IPAddress.Any and Port 8081
-            this.connection = new ServerConnection(IPAddress.Any, 8000);
-            this.connection.EstablishConnection();
-            /// Initialize EventHandler "NewRequestConnectionEvent" to subscribe.
-            this.connection.NewRequestConnectionEvent += new RequestConnectionEventHandler(connection_NewRequestConnectionEvent);
+            /// if serial starts okay then flag returns true.
+            /// then continue
+            if (flag)
+            {
+                /// Create new instance of ServerConnection 
+                /// by passing IPAddress.Any and Port 8081
+                this.connection = new ServerConnection(IPAddress.Any, 8000);
+                this.connection.EstablishConnection();
+                /// Initialize EventHandler "NewRequestConnectionEvent" to subscribe.
+                this.connection.NewRequestConnectionEvent += new RequestConnectionEventHandler(connection_NewRequestConnectionEvent);
 
-            ServerUtility.Log(this.ServerLogBox, string.Format("Server is running @{0}:8000", IPAddress.Any.ToString())); 
+                ServerUtility.Log(this.ServerLogBox, string.Format("Server is running @{0}:8000", IPAddress.Any.ToString()));
             #endregion
 
             #region Database Context Initialization
-            this.dbcontext = new BusDatabaseContext();
+                this.dbcontext = new BusDatabaseContext();
+                this.dbcontext.EstablishConnection();
             #endregion
+            }
         }
         /// <summary>
         /// 

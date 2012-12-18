@@ -6,6 +6,7 @@
     using BusTerminalMonitoringServerApp.Serial.Event;
 
     public delegate void NewMessageEventHandler(object sender, NewMessageEventArgs e);
+    public delegate void ErrorEventHandler(object sender, ConnectionErrorEventArgs e);
 
     public class SerialConnection : IDisposable
     {
@@ -16,6 +17,7 @@
         private BackgroundWorker worker = default(BackgroundWorker);
         private SerialPort serial = default(SerialPort);
         public event NewMessageEventHandler NewMessageEvent;
+        public event ErrorEventHandler ErrorEvent;
 
         private SerialConnection()
         {
@@ -32,9 +34,11 @@
             this.stopbits = stopbits;
         }
 
-        public void EstablistConnection()
+        public bool EstablistConnection()
         {
-            this.serial = new SerialPort
+            try
+            {
+                this.serial = new SerialPort
                 {
                     PortName = this.portname,
                     BaudRate = this.baudrate,
@@ -42,9 +46,17 @@
                     DataBits = 8,
                     StopBits = this.stopbits
                 };
-            this.serial.Open();
-            this.connect();
-            this.worker.RunWorkerAsync();
+                this.serial.Open();
+                this.connect();
+                this.worker.RunWorkerAsync();
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                ErrorEvent(this, new ConnectionErrorEventArgs(ex.Message));
+            }
+            return false;
         }
 
         private void worker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)

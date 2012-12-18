@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Bus Terminal | GUI</title>
+		<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false"></script>
+		<script type="text/javascript" src="./Content/Script/jquery.js" ></script>
+		<script type="text/javascript" src="./Content/Script/main.js" ></script>
+		<link rel="stylesheet" type="text/css" href="./Content/Resources/main.css" />
+	</head>
+	<body>
+		<div class="header">
+			<div class="header_text">
+				<h1><strong>Bus monitoring and tracking system</strong></h1>
+			</div>
+		</div>
+		<div class="page">
+			<div id="map">		
+			</div>
+			<div class="panel">
+				<table>
+					<th style="bactext-align: center; kground-color: #2D2D2D; color:#fff;">Bus Information</th>
+					<tbody>
+						<tr>
+							<table class="list">
+								<thead></thead>
+								<tbody>
+									<th id="bus_number1" colspan="2" style="background-color: #2D2D2D; color:#fff;">Bus # </th>
+									<tr class="alt1">
+				                        <td style="text-align: center; width: 50%;">Capacity</td>
+				                        <td style="text-align: center;" id="capacity1"></td>
+			                    	</tr>
+			                    	<tr class="alt2">
+				                        <td style="text-align: center; width: 50%;">Vacancy</td>
+				                        <td style="text-align: center;" id="vacancy1"></td>
+			                    	</tr>
+			                    	<tr class="alt1">
+			                        	<td style="text-align: center; width: 50%;">Occupied</td>
+			                        	<td style="text-align: center;" id="occupied1"></td>
+			                    	</tr>
+								</tbody>
+							</table>
+						</tr>
+						<tr>
+							<table class="list">
+								<thead></thead>
+								<tbody>
+									<th id="bus_number2" colspan="2" style="background-color: #2D2D2D; color:#fff;">Bus # </th>
+									<tr class="alt1">
+				                        <td style="text-align: center; width: 50%;">Capacity</td>
+				                        <td style="text-align: center;" id="capacity2"></td>
+			                    	</tr>
+			                    	<tr class="alt2">
+				                        <td style="text-align: center; width: 50%;">Vacancy</td>
+				                        <td style="text-align: center;" id="vacancy2"></td>
+			                    	</tr>
+			                    	<tr class="alt1">
+			                        	<td style="text-align: center; width: 50%;">Occupied</td>
+			                        	<td style="text-align: center;" id="occupied2"></td>
+			                    	</tr>
+								</tbody>
+							</table>
+						</tr>
+
+						<tr>
+							<table class="list">
+								<thead></thead>
+								<tbody>
+									<th id="bus_number3" colspan="2" style="background-color: #2D2D2D; color:#fff;">Bus # </th>
+									<tr class="alt1">
+				                        <td style="text-align: center; width: 50%;">Capacity</td>
+				                        <td style="text-align: center;" id="capacity3"></td>
+			                    	</tr>
+			                    	<tr class="alt2">
+				                        <td style="text-align: center; width: 50%;">Vacancy</td>
+				                        <td style="text-align: center;" id="vacancy3"></td>
+			                    	</tr>
+			                    	<tr class="alt1">
+			                        	<td style="text-align: center; width: 50%;">Occupied</td>
+			                        	<td style="text-align: center;" id="occupied3"></td>
+			                    	</tr>
+								</tbody>
+							</table>
+						</tr>
+					</tbody>
+				</table>	
+			</div>
+		</div>
+	</body>
+</html>
