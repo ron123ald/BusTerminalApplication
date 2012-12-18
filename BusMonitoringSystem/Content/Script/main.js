@@ -53,7 +53,8 @@ function InitializeHashHandler(){
 			InitializeMapMarkerInformation(marker1, hash.split("&")[3]);
 
 			// assign bus # in bus information panel
-			$('#bus_number1').html($('#bus_number1').html() + hash.split("&")[0]);
+			$('#bus_number1').html("");
+			$('#bus_number1').html("Bus # " + hash.split("&")[0]);
 			// assign capacity, occupied and vacant
 			$('#occupied1').html(occupied); 
 			$('#vacancy1').html(vacant); 
@@ -65,7 +66,8 @@ function InitializeHashHandler(){
 			InitializeMapMarkerInformation(marker2, hash.split("&")[3]);
 
 			// assign bus # in bus information panel
-			$('#bus_number2').html($('#bus_number2').html() + hash.split("&")[0]);
+			$('#bus_number2').html("");
+			$('#bus_number2').html("Bus # " + hash.split("&")[0]);
 			// assign capacity, occupied and vacant
 			$('#occupied2').html(occupied); 
 			$('#vacancy2').html(vacant); 
@@ -77,7 +79,8 @@ function InitializeHashHandler(){
 			InitializeMapMarkerInformation(marker3, hash.split("&")[3]);
 
 			// assign bus # in bus information panel
-			$('#bus_number3').html($('#bus_number3').html() + hash.split("&")[0]);
+			$('#bus_number3').html("");
+			$('#bus_number3').html("Bus # " + hash.split("&")[0]);
 			// assign capacity, occupied and vacant
 			$('#occupied3').html(occupied); 
 			$('#vacancy3').html(vacant); 

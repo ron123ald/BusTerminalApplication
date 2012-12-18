@@ -45,6 +45,7 @@
         {
             /// Create ClientWorkerConnection 
             ClientConnection clientconnection = new ClientConnection(e.Client);
+            clientconnection.UniqueKey = e.UniqueKey;
             /// start CLient connection
             clientconnection.EstablishConnection();
             /// Get Bus Terminal
@@ -91,6 +92,8 @@
                 }
                 else
                 {
+                    /// Show Error message using MethodInvoker
+                    /// Invoke to MainThread
                     this.Invoke((MethodInvoker)delegate
                     {
                         /// Show error message
@@ -153,7 +156,7 @@
             this.serial.NewMessageEvent += new NewMessageEventHandler(serial_NewMessageEvent);
             this.serial.ErrorEvent += new ErrorEventHandler(serial_ErrorEvent);
             /// Start Serial Connection
-            bool flag = this.serial.EstablistConnection(); 
+            bool flag = this.serial.EstablistConnection();
             #endregion
 
             #region Server Connection Initialization
@@ -171,11 +174,11 @@
                 ServerUtility.Log(this.ServerLogBox, string.Format("Server is running @{0}:8000", IPAddress.Any.ToString()));
             #endregion
 
-            #region Database Context Initialization
+                #region Database Context Initialization
                 this.dbcontext = new BusDatabaseContext();
                 this.dbcontext.EstablishConnection();
-            #endregion
-            }
+                #endregion
+            }           
         }
         /// <summary>
         /// 
@@ -186,7 +189,8 @@
         {
         }
         /// <summary>
-        /// 
+        /// Clear logs in Server
+        /// this.ServerLogBox
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -195,7 +199,7 @@
             this.ServerLogBox.Clear();
         }
         /// <summary>
-        /// 
+        /// Exit to Server
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -204,7 +208,7 @@
             this.Close();
         }
         /// <summary>
-        /// 
+        /// this will print the current date time in the form
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -229,7 +233,9 @@
                 /// remove client from the collection
                 (ServerCollection.InstanceContext).Remove(client);
             }
+            this.connection.Dispose();
             this.serial.Dispose();
+            this.dbcontext.Dispose();
             /// close all the clients that are connected with the server
             base.OnClosing(e);
         }

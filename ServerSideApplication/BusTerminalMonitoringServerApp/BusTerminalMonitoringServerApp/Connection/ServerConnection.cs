@@ -67,14 +67,18 @@
             /// Loop to Get New Client Request for connection.
             while (true)
             {
-                /// the debbugger will pass through this line after there's a client request for connection
-                client = this.listener.AcceptTcpClient();
-                /// check if client is not Null
-                if (client != null)
+                try
                 {
-                    /// fire Event Handler "NewRequestConnectionEvent"
-                    this.NewRequestConnectionEvent(this, new RequestConnectionEventArgs(client));
+                    /// the debbugger will pass through this line after there's a client request for connection
+                    client = this.listener.AcceptTcpClient();
+                    /// check if client is not Null
+                    if (client != null)
+                    {
+                        /// fire Event Handler "NewRequestConnectionEvent"
+                        this.NewRequestConnectionEvent(this, new RequestConnectionEventArgs(client));
+                    }
                 }
+                catch { }
             }
         }
         /// <summary>
@@ -94,12 +98,12 @@
         /// </summary>
         public void Dispose()
         {
+            /// Dispose BackgrounWorker
+            this.worker.Dispose();
             /// Stop TCP/IP Connection
             this.listener.Stop();
             /// Set to Null
             this.listener = default(TcpListener);
-            /// Dispose BackgrounWorker
-            this.worker.Dispose();
         }
     }
 }

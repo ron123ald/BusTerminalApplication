@@ -116,14 +116,7 @@
                 this.reader = new StreamReader(this.stream);
                 /// create new instance of StreamWriter by passing the NetWorkStream instance
                 this.writer = new StreamWriter(this.stream);
-            }
-            catch (Exception ex)
-            {
-                ErrorEvent(this, new ConnectionErrorEventArgs(ex.Message));
-                return;
-            }
-            finally
-            {
+           
                 /// Unlimited loop
                 /// to read all transmitted data by client side application
                 while (true)
@@ -159,6 +152,11 @@
                     }
                 }
             }
+            catch (Exception ex)
+            {
+                ErrorEvent(this, new ConnectionErrorEventArgs(ex.Message));
+                return;
+            }
         }
         /// <summary>
         /// this method will start the BackgroundWorker Component to Do Work.
@@ -177,10 +175,14 @@
         /// <returns></returns>
         public void Transmit(string data)
         {
-            /// write the data to the stream
-            this.writer.WriteLine(data);
-            /// flush the writer
-            this.writer.Flush();
+            try
+            {
+                /// write the data to the stream
+                this.writer.WriteLine(data);
+                /// flush the writer
+                this.writer.Flush();
+            }
+            catch { }
         }
         /// <summary>
         /// Dispose or Release the resources from this class
@@ -190,6 +192,12 @@
         /// </summary>
         public void Dispose()
         {
+            if (this.worker != null)
+                this.worker.Dispose();
+
+            if (this.client != null)
+                this.client.Close();
+
             if (this.stream != null)
             {
                 /// close all streams

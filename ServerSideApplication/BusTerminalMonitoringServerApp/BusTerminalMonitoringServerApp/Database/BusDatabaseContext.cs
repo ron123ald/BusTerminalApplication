@@ -44,6 +44,7 @@ using MySql.Data.MySqlClient;
             List<Bus> results = default(List<Bus>);
             if (!string.IsNullOrEmpty(bus_number))
             {
+                results = new List<Bus>();
                 string select_command = string.Format("SELECT * FROM tbl_bus where bus_number='{0}'", bus_number);
                 using (MySqlCommand command = new MySqlCommand(select_command, this.connection))
                 {

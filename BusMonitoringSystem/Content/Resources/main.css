@@ -8,8 +8,9 @@ body {
 }
 
 div.header {
+	margin-top: 10px;
 	margin-bottom: 10px;
-	height: 150px;
+	height: 100px;
 	background: url("./images/img01.jpg") repeat-x left top;
 	box-shadow: 0 6px 20px #000;
 	-webkit-box-shadow: 0 6px 20px #000;
@@ -47,7 +48,7 @@ div.page {
 div#map {
 	float: left;
 	width: 79%;
-	height: 600px;
+	height: 550px;
 	background-color: #8D8C8C;
 	/*border-style: solid;*/
 	border-width: 3px;
@@ -60,7 +61,7 @@ div.panel {
 	border-width: 3px;
 	float: right;
 	width: 19%;
-	height: 600px;
+	height: 550px;
 	background-color: #8D8C8C;
 	border-style: solid;
 	box-shadow: 0 10px 20px #000;

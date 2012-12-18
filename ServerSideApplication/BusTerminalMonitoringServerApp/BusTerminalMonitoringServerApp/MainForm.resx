@@ -126,4 +126,22 @@
   <metadata name="DateTimer.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>143, 17</value>
   </metadata>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        AAABAAEAICAEAAAAAADoAgAAFgAAACgAAAAgAAAAQAAAAAEABAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAACAAACAAAAAgIAAgAAAAIAAgACAgAAAgICAAMDAwAAAAP8AAP8AAAD//wD/AAAA/wD/AP//
+        AAD///8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIiIiIiIiIiIiIiIiIiAAAAAAAAA
+        AAAAAAAAAAAAgAAIiIiIiIiIiIiIiIiIgIAACIiIiIiIiIiIiIiIiICAAA/4iIiIiP///48AAA+AgAAP
+        +LiYqIj///+P////gIAAD/iIiIiI////jwAAD4CAAA/////4iIiIiIiIiIiAgAAAAAAAAIiIiIAAAAAA
+        AAAAAAAAAAD////wAAAAAAAAAACIiIiICIiICIiIiIiIgAAAAAAAAAAAAAAAAAAAAIAACIiIj4iIiIiI
+        iP+IiICAAAgAAAAAAAAAAAAAAACAgAAIDP/8//z8z8z8z//AgIAADwzM/PzM/M/Pz8/MwICAAA8M//z/
+        zP/8z8/P/MDwgAAPDPzM/Mz8z8/Pz8zAgIAADwz//P/8///Pz8//wICAAA8MzMzMzMzMzMzMzMDwgAAP
+        DP/8//z8z8/Mz//AgIAADwz8zPz8/M/P/M/PwPCAAA8M/Mz8/P//z8/Pz8CAgAAPDP/8//z8z8/8z8/A
+        8IAACAzMzMzMzMzMzMzMwICAAAgAAAAAAAAAAAAAAACAgAAIiIj///////////+IgIAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD///////////AAAAHAAAABwAAAAcAA
+        AAHAAAABwAAAAcAAAAHAAAABwAAAA//gD//wAAABwAAAAcAAAAHAAAABwAAAAcAAAAHAAAABwAAAAcAA
+        AAHAAAABwAAAAcAAAAHAAAABwAAAAcAAAAHAAAABwAAAAcAAAAP//////////w==
+</value>
+  </data>
 </root>

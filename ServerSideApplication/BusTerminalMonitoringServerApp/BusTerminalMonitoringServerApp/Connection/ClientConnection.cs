@@ -111,27 +111,13 @@
                     /// check if data is not Null or Empty
                     if (!string.IsNullOrEmpty(data))
                     {
-                        #region no implementation yet, need to work on higher priority
-                        ///// Get ActionType of the data
-                        //switch (ServerUtility.GetActionType(data))
-                        //{
-                        //    case ActionType.RequestConnection:
-                        //        break;
-                        //    case ActionType.Transmit:
-                        //        break;
-                        //    case ActionType.ClientApplicationStart:
-                        //        break;
-                        //    case ActionType.ClientApplicationStop:
-                        //        break;
-                        //    case ActionType.Ping:
-                        //        break;
-                        //    case ActionType.Pong:
-                        //        break;
-                        //    case ActionType.Unknown:
-                        //        break;
-                        //    default: break;
-                        //} 
-                        #endregion
+                        switch (ServerUtility.GetActionType(data))
+                        {
+                            case ActionType.Diconnect:
+                                throw new Exception("Client unreachable");
+                            default:
+                                break;
+                        }
                     }
                 }
                 catch (Exception ex)
@@ -181,6 +167,8 @@
         /// </summary>
         public void Dispose()
         {
+            if (this.worker != null)
+                this.worker.Dispose();
             /// close all streams
             /// Dispose all streams
             if (this.client != null)

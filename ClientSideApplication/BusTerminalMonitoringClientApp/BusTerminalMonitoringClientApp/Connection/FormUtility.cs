@@ -1,11 +1,13 @@
-﻿using System.Collections.Generic;
-namespace BusTerminalMonitoringClientApp.Connection
+﻿namespace BusTerminalMonitoringClientApp.Connection
 {
+    using System.Collections.Generic;
+    using System.Configuration;
+
     public static class FormUtility
     {
         public static string GoogleMapUrl
         {
-            get { return "http://localhost:81/BusMonitoringSystem/"; }
+            get { return ConfigurationManager.AppSettings.Get("GoogleMap"); }
         }
         /// <summary>
         /// return Action type base from the data

@@ -15,13 +15,13 @@
         {
             ActionType type = default(ActionType);
 
-            if (data.Contains("transmit"))
+            if (data.ToLower().Contains("transmit"))
                 type = ActionType.Transmit;
-            else if (data.Contains("request_disconnection"))
+            else if (data.ToLower().Contains("diconnect"))
                 type = ActionType.Diconnect;
-            else if (data.Contains("ping"))
+            else if (data.ToLower().Contains("ping"))
                 type = ActionType.Ping;
-            else if (data.Contains("pong"))
+            else if (data.ToLower().Contains("pong"))
                 type = ActionType.Pong;
             else
                 type = ActionType.Unknown;
@@ -30,25 +30,28 @@
 
         /// <summary>
         /// Parse data to Bus object
+        /// ("bus_number"&"lattitude"&"longitude"&"capacity"&"vacant"&"occupied"&"details)
         /// </summary>
         /// <param name="data"></param>
         /// <returns></returns>
         public static Bus ParseData(string data)
         {
-            Bus bus = default(Bus);
-            data = data.Replace("{", "").Replace("}", "").Replace("\"", "");
-            string[] splittedbycomma = data.Split(',');
-       
-            bus = new Bus
+            string substringdata = data.Substring(data.IndexOf("("));
+            string substringremove = substringdata.Substring(substringdata.IndexOf(")"));
+
+            substringdata = substringdata.Replace("(","").Replace(substringremove, "");
+            string[] splittedbycomma = substringdata.Split('&');
+
+            Bus bus = new Bus
             {
                 Action = ActionType.Transmit,
-                BusNumber = splittedbycomma[0].Split(':')[1],
-                Lattitude = splittedbycomma[1].Split(':')[1],
-                Longitude = splittedbycomma[2].Split(':')[1],
-                Capacity = splittedbycomma[3].Split(':')[1],
-                Vacancy = splittedbycomma[4].Split(':')[1],
-                Occupied = splittedbycomma[5].Split(':')[1],
-                Details = splittedbycomma[6].Split(':')[1]
+                BusNumber = splittedbycomma[0],
+                Lattitude = splittedbycomma[1],
+                Longitude = splittedbycomma[2],
+                Capacity = splittedbycomma[3],
+                Vacancy = splittedbycomma[4],
+                Occupied = splittedbycomma[5],
+                Details = splittedbycomma[6],
             };
             return bus;
         }

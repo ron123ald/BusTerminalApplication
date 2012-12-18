@@ -68,15 +68,22 @@
             get { return this._bus_number; }
         }
 
+        /// <summary>
+        /// http://localhost:8080/BusMonitoringSystem/#800-23&10.232323&123.4343434&Series Bus Liner GVDHE23232&30&18&12
+        /// </summary>
+        /// <returns></returns>
         public override string ToString()
         {
             string data = string.Empty;
-            data = string.Format("{0}#{1}&{2}&{3}&{4}"
+            data = string.Format("{0}#{1}&{2}&{3}&{4}&{5}&{6}&{7}"
                 , FormUtility.GoogleMapUrl
                 , this.BusNumber
                 , this.Lattitude
                 , this.Longitude
                 , this.Details
+                , this.Occupied
+                , this.Vacancy
+                , this.Capacity
                 );
             return data;
         }

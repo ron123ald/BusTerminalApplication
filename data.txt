@@ -1,3 +1,10 @@
+\r\n
++CMGR: "REC UNREAD","+639322017913",,"12/12/18,15:24:34+32"
+(800-25&10.124&123.126&30&16&14&)
+\r\n
+OK
+\r\n
+---------------------------------
 +------------------------+
 | tbl_Bus                   |
 +------------------------+
@@ -31,6 +38,14 @@ in JSON format
 	\"occupied\": \"14\",
 	\"details\": \"\"
 }
+
+
+
+New Expected From HARDWARE to BROADBAND Message Form
+format:
+("bus_number"&"lattitude"&"longitude"&"capacity"&"vacant"&"occupied"&"details)
+example:
+(800-25&10.124&123.126&30&16&14&test)
 
 client request
 {

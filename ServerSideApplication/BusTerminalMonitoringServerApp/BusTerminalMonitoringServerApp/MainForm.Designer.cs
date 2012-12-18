@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.ServerLogBox = new System.Windows.Forms.RichTextBox();
             this.MenuBarStrip = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -77,19 +78,19 @@
             // ClearLogStripMenuItem
             // 
             this.ClearLogStripMenuItem.Name = "ClearLogStripMenuItem";
-            this.ClearLogStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.ClearLogStripMenuItem.Size = new System.Drawing.Size(129, 22);
             this.ClearLogStripMenuItem.Text = "&Clear Logs";
             this.ClearLogStripMenuItem.Click += new System.EventHandler(this.ClearLogStripMenuItem_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(149, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(126, 6);
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(129, 22);
             this.exitToolStripMenuItem.Text = "E&xit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
@@ -125,6 +126,7 @@
             this.Controls.Add(this.ServerLogBox);
             this.Controls.Add(this.MenuBarStrip);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.MenuBarStrip;
             this.MaximizeBox = false;
             this.Name = "MainForm";

@@ -47,20 +47,23 @@
         /// <param name="e"></param>
         private void connection_ErrorEvent(object sender, Connection.Event.ConnectionErrorEventArgs e)
         {
-            if (!this.InvokeRequired)
+            if (!this.IsDisposed)
             {
-                /// Show error message
-                MessageBox.Show(this, e.ErrorMessage, "Error occured while connecting", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                this.Close();
-            }
-            else
-            {
-                this.Invoke((MethodInvoker)delegate
+                if (!this.InvokeRequired)
                 {
                     /// Show error message
                     MessageBox.Show(this, e.ErrorMessage, "Error occured while connecting", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     this.Close();
-                });
+                }
+                else
+                {
+                    this.Invoke((MethodInvoker)delegate
+                    {
+                        /// Show error message
+                        MessageBox.Show(this, e.ErrorMessage, "Error occured while connecting", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        this.Close();
+                    });
+                } 
             }
         }
         /// <summary>
@@ -91,7 +94,7 @@
             this.Invoke((MethodInvoker)delegate
             {
                 /// Load url whenever e is not equal to TargetURL
-                if (string.Compare(this.WebViewControl.TargetURL, e.ToString(), true) != 0)
+                if (string.Compare(this.WebViewControl.Source.AbsoluteUri, e.ToString(), true) != 0)
                     this.WebViewControl.LoadURL(e.ToString()); 
             });
         }
@@ -101,6 +104,7 @@
         /// <param name="e"></param>
         protected override void OnClosing(System.ComponentModel.CancelEventArgs e)
         {
+            this.connection.Transmit(string.Format("action={0}", ActionType.Diconnect.ToString()));
             /// dispose
             this.connection.Dispose();
             base.OnClosing(e);
