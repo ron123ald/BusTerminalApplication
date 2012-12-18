@@ -1,4 +1,0 @@
-D:\ronald\BusTerminalApplication\Library\BusTerminalLibrary\BusTerminalLibrary\bin\Debug\BusTerminalLibrary.dll
-D:\ronald\BusTerminalApplication\Library\BusTerminalLibrary\BusTerminalLibrary\bin\Debug\BusTerminalLibrary.pdb
-D:\ronald\BusTerminalApplication\Library\BusTerminalLibrary\BusTerminalLibrary\obj\Debug\BusTerminalLibrary.dll
-D:\ronald\BusTerminalApplication\Library\BusTerminalLibrary\BusTerminalLibrary\obj\Debug\BusTerminalLibrary.pdb
