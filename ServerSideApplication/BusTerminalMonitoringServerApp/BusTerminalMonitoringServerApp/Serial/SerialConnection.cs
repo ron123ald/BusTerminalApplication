@@ -3,6 +3,7 @@
     using System;
     using System.ComponentModel;
     using System.IO.Ports;
+    using BusTerminalMonitoringServerApp.Connection;
     using BusTerminalMonitoringServerApp.Serial.Event;
 
     public delegate void NewMessageEventHandler(object sender, NewMessageEventArgs e);
@@ -85,15 +86,15 @@
                         Write(at_cmgr + index.ToString());
                         /// Wait for 500 milliseconds
                         System.Threading.Thread.Sleep(500);
+                        datarecieved = this.serial.ReadExisting();
                         /// publish EventHandler
-                        NewMessageEvent(this, new NewMessageEventArgs(this.serial.ReadExisting()));
+                        NewMessageEvent(this, new NewMessageEventArgs(datarecieved, datarecieved.GetPhoneNumber()));
                         /// Delete messages base from index of inbox
                         Write(at_cmgd + index.ToString());
                     }
                 }
                 catch
                 {
-
                 }
             }
         }

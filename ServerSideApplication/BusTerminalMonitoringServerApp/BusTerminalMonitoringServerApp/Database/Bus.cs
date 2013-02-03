@@ -12,6 +12,7 @@
         private string _occupied = string.Empty;
         private string _details = string.Empty;
         private ActionType _action = default(ActionType);
+        private string _dateTime = string.Empty;
 
         public Bus()
         {
@@ -75,6 +76,12 @@
         {
             set { this._action = value; }
             get { return this._action; }
+        }
+
+        public string DateTime
+        {
+            get { return this._dateTime; }
+            set { this._dateTime = value; }
         }
 
         public override string ToString()

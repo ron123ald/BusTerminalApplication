@@ -78,3 +78,48 @@ client request
 +CMGR: "REC READ","002B003600330039003300320032003000310037003900310033",,"12/12/17,14:23:18+32"
 00480065006C006C006F00200074006800650072006500200073006D00610072007400620072006F0061006400620061006E006400200070006C006500610073006400200077006F0072002E
 
+
+
+
+START /WAIT DISM /Online /Enable-Feature/FeatureName:IIS-ApplicationDevelopment/FeatureName:IIS-ASP/FeatureName:IIS-ASPNET/FeatureName:IIS-BasicAuthentication/FeatureName:IIS-CGI/FeatureName:IIS-ClientCertificateMappingAuthentication/FeatureName:IIS-CommonHttpFeatures/FeatureName:IIS-CustomLogging/FeatureName:IIS-DefaultDocument/FeatureName:IIS-DigestAuthentication/FeatureName:IIS-DirectoryBrowsing/FeatureName:IIS-FTPExtensibility/FeatureName:IIS-FTPServer/FeatureName:IIS-FTPSvc/FeatureName:IIS-HealthAndDiagnostics/FeatureName:IIS-HostableWebCore/FeatureName:IIS-HttpCompressionDynamic/FeatureName:IIS-HttpCompressionStatic/FeatureName:IIS-HttpErrors/FeatureName:IIS-HttpLogging/FeatureName:IIS-HttpRedirect/FeatureName:IIS-HttpTracing/FeatureName:IIS-IIS6ManagementCompatibility/FeatureName:IIS-IISCertificateMappingAuthentication/FeatureName:IIS-IPSecurity/FeatureName:IIS-ISAPIExtensions/FeatureName:IIS-ISAPIFilter/FeatureName:IIS-LegacyScripts/FeatureName:IIS-LegacySnapIn/FeatureName:IIS-LoggingLibraries/FeatureName:IIS-ManagementConsole/FeatureName:IIS-ManagementScriptingTools/FeatureName:IIS-ManagementService/FeatureName:IIS-Metabase/FeatureName:IIS-NetFxExtensibility/FeatureName:IIS-ODBCLogging/FeatureName:IIS-Performance/FeatureName:IIS-RequestFiltering/FeatureName:IIS-RequestMonitor/FeatureName:IIS-Security/FeatureName:IIS-ServerSideIncludes/FeatureName:IIS-StaticContent/FeatureName:IIS-URLAuthorization/FeatureName:IIS-WebDAV/FeatureName:IIS-WebServer/FeatureName:IIS-WebServerManagementTools/FeatureName:IIS-WebServerRole/FeatureName:IIS-WindowsAuthentication/FeatureName:IIS-WMICompatibility/FeatureName:WAS-ConfigurationAPI/FeatureName:WAS-NetFxEnvironment/FeatureName:WAS-ProcessModel/FeatureName:WAS-WindowsActivationService
+
+
+
+jwplayer('player').setup({
+	file: 'http://server26.stream2k.com/dl3/Hr0xMTZAISPtPuB10IXIYGo6baNkooIAlqJIOCMdRSfQRNm_n7N6X0bRMBNCeY3bQ3Q6vRwA9bco9L91SuBirxWqf3ftyB4gVBF87x4_bsc=.flv',
+	height: 320,
+	width: document.getElementById('player').clientWidth,
+	bufferlength: 10,
+	'controlbar.position': 'over',
+	icons: true,
+	backcolor: 'eeeeee',
+	frontcolor: '000000',
+	lightcolor: '000000',
+	screencolor: '000000',
+	provider: 'http',
+	stretching: 'uniform',
+	modes : [
+			{type: 'html5'},
+			{type: 'flash', src: 'http://server26.stream2k.com/player/player-licensed56.swf'},
+	]
+});
+
+
+jwplayer('player').setup({
+	file: 'http://server27.stream2k.com/dl3/K0gwtueTifFMyGth7p9CMvzaJErKcRgjxV8YCxS99Ts54tjQtfbLeyQvp5K_n8iRxCwTOHegxYRHx1b1bPwCormauLvCceesWVLBMY1mUR0=.flv',
+	height: 320,
+	width: document.getElementById('player').clientWidth,
+	bufferlength: 10,
+	'controlbar.position': 'over',
+	icons: true,
+	backcolor: 'eeeeee',
+	frontcolor: '000000',
+	lightcolor: '000000',
+	screencolor: '000000',
+	provider: 'http',
+	stretching: 'uniform',
+	modes : [
+			{type: 'html5'},
+			{type: 'flash', src: 'http://server27.stream2k.com/player/player-licensed56.swf'},
+	]
+});

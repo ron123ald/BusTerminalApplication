@@ -1,8 +1,10 @@
 ﻿namespace BusTerminalMonitoringServerApp.Connection
 {
     using System;
-    using System.Windows.Forms;
-    using BusTerminalMonitoringServerApp.Database;
+using System.Collections.Generic;
+using System.Configuration;
+using System.Windows.Forms;
+using BusTerminalMonitoringServerApp.Database;
 
     public static class ServerUtility
     {
@@ -80,8 +82,55 @@
                         control.AppendText(formatted);
                         control.ScrollToCaret();
                     }));
-                } 
+                }
             }
+            ILogger logger = Logger.InstanceContext;
+            logger.LogToDisk(message, DateTime.Now);
+        }
+
+        public static bool IsPhoneNumberValid(this string phoneNumber)
+        {
+            bool flag = false;
+            string phoneNumbers = ConfigurationManager.AppSettings.Get("GSM_NUMBERS");
+            if (!string.IsNullOrEmpty(phoneNumber) && !string.IsNullOrEmpty(phoneNumbers))
+            {
+                foreach (string item in phoneNumbers.Split(','))
+                {
+                    if (item.Equals(phoneNumber))
+                    {
+                        flag = true;
+                        break;
+                    }
+                }
+            }
+            return flag;
+        }
+
+        public static string GetPhoneNumber(this string message)
+        {
+            string phoneNumber = string.Empty;
+            try
+            {
+                phoneNumber = message.Replace("\r\n+CMGR: \"REC UNREAD\",\"", "");
+                if (phoneNumber.Contains("+63"))
+                    phoneNumber = phoneNumber.Substring(3, 10);
+                else if (phoneNumber.Contains("09"))
+                    phoneNumber = phoneNumber.Substring(1, 10);
+            }
+            catch
+            {
+            }
+            return phoneNumber;
+        }
+
+        public static string GenerateDocument(this List<Bus> bus)
+        {
+            string document = string.Empty;
+            if (bus != null && bus.Count > 0)
+            {
+
+            }
+            return document;
         }
     }
 }

@@ -26,6 +26,10 @@
         /// </summary>
         private SerialConnection serial     = default(SerialConnection);
         /// <summary>
+        /// New instance of Logger
+        /// </summary>
+        private ILogger logger = default(ILogger);
+        /// <summary>
         /// public Constructor for this Class MainForm
         /// </summary>
         public MainForm()
@@ -111,32 +115,29 @@
         /// <param name="e"></param>
         private void serial_NewMessageEvent(object sender, Serial.Event.NewMessageEventArgs e)
         {
-            ServerUtility.Log(this.ServerLogBox, e.Message);
-            /// Parse e.Message to Bus 
-            /// then save to db and sumbit to clients
-            Bus bus = ServerUtility.ParseData(e.Message);
-            /// select if record of bus_number exists in bus database
-            List<Bus> busses = this.dbcontext.Select(bus.BusNumber);
-            if (busses.Count <= 0)
+            if (e.PhoneNumber.IsPhoneNumberValid())
             {
+                ServerUtility.Log(this.ServerLogBox, e.Message);
+                /// Parse e.Message to Bus 
+                /// then save to db and sumbit to clients
+                Bus bus = ServerUtility.ParseData(e.Message);
+                /// select if record of bus_number exists in bus database
+                List<Bus> busses = this.dbcontext.Select(bus.BusNumber);
                 /// insert record in database
                 this.dbcontext.Insert(bus);
+
+                /// Get All the clients
+                List<ClientConnection> clients = (ServerCollection.InstanceContext).Get();
+                /// Iterate to all clients and transmit bus data
+                clients.ForEach(delegate(ClientConnection client)
+                {
+                    client.Transmit(bus.ToString());
+                });
+                /// Log that Client disconnects
+                ServerUtility.Log(this.ServerLogBox, string.Format("Send to Clients : {0}", bus.ToString()));
             }
             else
-            {
-                /// update record in database
-                this.dbcontext.Update(bus);
-            }
-
-            /// Get All the clients
-            List<ClientConnection> clients = (ServerCollection.InstanceContext).Get();
-            /// Iterate to all clients and transmit bus data
-            clients.ForEach(delegate(ClientConnection client)
-            {
-                client.Transmit(bus.ToString());
-            });
-            /// Log that Client disconnects
-            ServerUtility.Log(this.ServerLogBox, string.Format("Send to Clients : {0}", bus.ToString()));    
+                ServerUtility.Log(this.ServerLogBox, string.Format("Unknown phone number : {0}", e.PhoneNumber));
         }
         #endregion
 
@@ -178,7 +179,11 @@
                 this.dbcontext = new BusDatabaseContext();
                 this.dbcontext.EstablishConnection();
                 #endregion
-            }           
+            }
+            #region Logger
+            this.logger = Logger.InstanceContext;
+            this.logger.Initialize();
+            #endregion
         }
         /// <summary>
         /// 
@@ -215,7 +220,25 @@
         private void DateTimer_Tick(object sender, System.EventArgs e)
         {
             this.DateTimeLabel.Text = System.DateTime.Now.ToString();
-        } 
+        }
+        /// <summary>
+        /// this method will trigger whenever you print logs
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnPrint_Click(object sender, System.EventArgs e)
+        {
+            string Command = string.Format("SELECT * FROM tbl_bus WHERE CreateDate >= '{0}' and CreateDate <= '{1}'", this.StartDateTime.Value.ToString("MM/dd/yy 00:00:00"), this.EndDateTime.Value.ToString("MM/dd/yy 00:00:00"));
+            string document = (dbcontext.Command(Command)).GenerateDocument();
+
+            if (!string.IsNullOrEmpty(document))
+            {
+                PrintDocForm print = new PrintDocForm(document);
+                print.Show();
+            }
+            else
+                MessageBox.Show(this, "No records where found!", "Print document", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
         #endregion
 
         #region Protected Override Methods

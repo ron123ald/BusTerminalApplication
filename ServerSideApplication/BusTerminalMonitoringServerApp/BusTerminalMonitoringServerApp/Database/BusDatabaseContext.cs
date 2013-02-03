@@ -1,9 +1,9 @@
 ﻿namespace BusTerminalMonitoringServerApp.Database
 {
     using System;
-using System.Collections.Generic;
-using System.Configuration;
-using MySql.Data.MySqlClient;
+    using System.Collections.Generic;
+    using System.Configuration;
+    using MySql.Data.MySqlClient;
 
     public class BusDatabaseContext : IDisposable
     {
@@ -60,7 +60,43 @@ using MySql.Data.MySqlClient;
                                 Lattitude = reader["bus_lattitude"].ToString(),
                                 Longitude = reader["bus_longitude"].ToString(),
                                 Occupied = reader["bus_occupied"].ToString(),
-                                Vacancy = reader["bus_vacant"].ToString()
+                                Vacancy = reader["bus_vacant"].ToString(),
+                                DateTime = reader["CreateDate"].ToString()
+                            });
+                        }
+                    }
+                }
+            }
+            return results;
+        }
+        /// <summary>
+        /// Select Query Statement 
+        /// </summary>
+        /// <param name="bus_number"></param>
+        /// <returns></returns>
+        public List<Bus> Command(string customCommand)
+        {
+            /// Initialize results with default(List<Bus>) or Null
+            List<Bus> results = default(List<Bus>);
+            if (!string.IsNullOrEmpty(customCommand))
+            {
+                results = new List<Bus>();
+                using (MySqlCommand command = new MySqlCommand(customCommand, this.connection))
+                {
+                    using (MySqlDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            results.Add(new Bus
+                            {
+                                BusNumber = reader["bus_number"].ToString(),
+                                Capacity = reader["bus_capacity"].ToString(),
+                                Details = reader["bus_details"].ToString(),
+                                Lattitude = reader["bus_lattitude"].ToString(),
+                                Longitude = reader["bus_longitude"].ToString(),
+                                Occupied = reader["bus_occupied"].ToString(),
+                                Vacancy = reader["bus_vacant"].ToString(),
+                                DateTime = reader["CreateDate"].ToString()
                             });
                         }
                     }

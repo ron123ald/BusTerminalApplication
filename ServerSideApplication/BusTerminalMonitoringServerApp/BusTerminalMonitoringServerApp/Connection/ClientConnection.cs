@@ -4,10 +4,9 @@
     using System.ComponentModel;
     using System.IO;
     using System.Net.Sockets;
-    using System.Text;
 
-    #region MyRegion
-    
+    #region Delegate
+
     /// <summary>
     /// delete method 
     /// this is used to whenever the client disconnects from the server
