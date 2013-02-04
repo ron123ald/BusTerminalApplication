@@ -1,10 +1,11 @@
 ﻿namespace BusTerminalMonitoringServerApp.Connection
 {
     using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Windows.Forms;
-using BusTerminalMonitoringServerApp.Database;
+    using System.Collections.Generic;
+    using System.Configuration;
+    using System.Text;
+    using System.Windows.Forms;
+    using BusTerminalMonitoringServerApp.Database;
 
     public static class ServerUtility
     {
@@ -123,14 +124,73 @@ using BusTerminalMonitoringServerApp.Database;
             return phoneNumber;
         }
 
-        public static string GenerateDocument(this List<Bus> bus)
+        public static string GenerateDocument(this List<Bus> bus, string startData, string endDate)
         {
-            string document = string.Empty;
+            StringBuilder document = new StringBuilder();
             if (bus != null && bus.Count > 0)
+            {
+                document.Append("\r\n\r\n                      BUS MONITORING SYSTEM LOGS\r\n\r\n" + 
+                                "Start date : " + startData + "\r\nEnd date   : " + endDate + "\r\n\r\n" +
+                                "+===========================================================================+\r\n" +
+                                "| ID  | NUMBER |   LAT   |   LONG   | CAP | VAC | OCC |      DATE/TIME      |\r\n" +
+                                "+=====+========+=========+==========+=====+=====+=====+=====================+\r\n");
+                foreach (Bus item in bus)
+                {
+                    document.Append("|" + ItemBuilder(item.ID, 5));
+                    document.Append("|" + ItemBuilder(item.BusNumber, 9));
+                    document.Append("|" + ItemBuilder(item.Lattitude, 9));
+                    document.Append("|" + ItemBuilder(item.Longitude, 9));
+                    document.Append("|" + ItemBuilder(item.Capacity, 5));
+                    document.Append("|" + ItemBuilder(item.Vacancy, 5));
+                    document.Append("|" + ItemBuilder(item.Occupied, 5));
+                    document.Append("|" + ItemBuilder((DateTime.Parse(item.DateTime).ToString()), 21) + "|\r\n");
+                    document.Append("+-----+--------+---------+----------+-----+-----+-----+---------------------+\r\n");
+                }
+            }
+            return document.ToString();
+        }
+
+        public static string ItemBuilder(string data, int spaces)
+        {
+            string response = string.Empty;
+            if (data.Length > spaces)
+            {
+                int diff = data.Length - spaces;
+                response = RemoveExcess(data, diff);
+            }
+            else if (data.Length < spaces)
+            {
+                int diff = spaces - data.Length;
+                response = data + AddEmptySpaces(diff);
+            }
+            else
             {
 
             }
-            return document;
+
+
+
+            return response;
+        }
+
+        private static string AddEmptySpaces(int noOfSpaces)
+        {
+            string spaces = "";
+            for (int i = 0; i < noOfSpaces; i++)
+            {
+                spaces += ' ';
+            }
+            return spaces;
+        }
+
+        public static string RemoveExcess(string data, int noOfExcess)
+        {
+            string response = string.Empty;
+            for (int i = 0; i < data.Length-noOfExcess; i++)
+            {
+                response += data[i];
+            }
+            return response;
         }
     }
 }

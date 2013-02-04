@@ -99,13 +99,31 @@ function InitializeMap(lattitude, longitude){
 	});  
 }
 
-function InitializeMapMarker1(lattitude, longitude){
-  
+function InitializeMapMarker1(busNumber, lattitude, longitude){
+	/*
 	marker1 = new google.maps.Marker({
 		position: new google.maps.LatLng(lattitude, longitude),
 		map: map,
-		title: "Bus"
-	});
+		title: busNumber
+	});*/
+
+	marker1 = new MarkerWithLabel({
+       position: new google.maps.LatLng(lattitude, longitude),
+       draggable: true,
+       raiseOnDrag: true,
+       map: map,
+       labelContent: busNumber,
+       labelAnchor: new google.maps.Point(22, 0),
+       labelClass: "labels", // the CSS class for the label
+       labelStyle: {opacity: 0.75}
+     });
+
+	/*
+
+	var infowindow1 = new google.maps.InfoWindow();
+	infowindow1.setContent(busNumber);
+	infowindow1.open(map, marker1);
+	*/
 }
 
 function InitializeMapMarker2(lattitude, longitude){
@@ -127,6 +145,7 @@ function InitializeMapMarker3(lattitude, longitude){
 }
 
 function InitializeMapMarkerInformation(marker, busInfo){
+
 
 	google.maps.event.addListener(marker, 'click', (function (marker, info) {
 		return function () {
@@ -161,7 +180,7 @@ function setBusNumber(busnumber, lattitude, longitude){
 	if(bus1 == undefined || bus1 == null || bus1 == ''){
 		bus1 = busnumber;
 		// initialize marker1
-		InitializeMapMarker1(lattitude, longitude);
+		InitializeMapMarker1(busnumber, lattitude, longitude);
 	} else if(bus2 == undefined || bus2 == null || bus2 == ''){
 		bus2 = busnumber;
 		// initialize marker2

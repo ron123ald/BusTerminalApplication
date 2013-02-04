@@ -9,6 +9,11 @@ namespace BusTerminalMonitoringServerApp
     {
         private string data = string.Empty;
 
+        public PrintDocForm()
+        {
+            InitializeComponent();
+        }
+
         public PrintDocForm(string data)
         {
             this.data = data;
@@ -26,7 +31,7 @@ namespace BusTerminalMonitoringServerApp
             e.Graphics.DrawString(this.documentBox.Text, this.documentBox.Font, Brushes.Black, 100, 20);
             e.Graphics.PageUnit = GraphicsUnit.Inch;
         }
-
+        
         private void btnOkPrint_Click(object sender, EventArgs e)
         {
             try
@@ -47,6 +52,16 @@ namespace BusTerminalMonitoringServerApp
         private void btnCancelPrint_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void btnPreview_Click(object sender, EventArgs e)
+        {
+            this.printPreviewDialog.Document = this.printDocumentRecord;
+            this.printPreviewDialog.ShowDialog(this);
+        }
+
+        private void printPreviewDialog_Load(object sender, EventArgs e)
+        {
         }
     }
 }

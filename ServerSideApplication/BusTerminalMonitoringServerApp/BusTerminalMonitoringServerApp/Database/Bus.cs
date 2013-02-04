@@ -4,6 +4,7 @@
 
     public class Bus
     {
+        private string _bus_id = string.Empty;
         private string _bus_number = string.Empty;
         private string _lattitude = string.Empty;
         private string _longitude = string.Empty;
@@ -28,6 +29,12 @@
             this._occupied = occupied;
             this._details = details;
             this._action = action;
+        }
+
+        public string ID
+        {
+            get { return this._bus_id; }
+            set { this._bus_id = value; }
         }
 
         public string Lattitude

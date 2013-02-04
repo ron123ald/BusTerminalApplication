@@ -37,27 +37,19 @@
 
         public bool EstablistConnection()
         {
-            try
+            this.serial = new SerialPort
             {
-                this.serial = new SerialPort
-                {
-                    PortName = this.portname,
-                    BaudRate = this.baudrate,
-                    Parity = this.parity,
-                    DataBits = 8,
-                    StopBits = this.stopbits
-                };
-                this.serial.Open();
-                this.connect();
-                this.worker.RunWorkerAsync();
+                PortName = this.portname,
+                BaudRate = this.baudrate,
+                Parity = this.parity,
+                DataBits = 8,
+                StopBits = this.stopbits
+            };
+            this.serial.Open();
+            this.connect();
+            this.worker.RunWorkerAsync();
 
-                return true;
-            }
-            catch (Exception ex)
-            {
-                ErrorEvent(this, new ConnectionErrorEventArgs(ex.Message));
-            }
-            return false;
+            return true;
         }
 
         private void worker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)

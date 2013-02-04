@@ -71,3 +71,15 @@ div.panel {
 table.list { border-width: 1px; border-bottom: 1px solid #ccc; margin-bottom: 1em; width: 100%;}
 tr.alt1>td { background: #eee; }
 tr.alt2>td { background: #fff; }
+
+.labels {
+	 color: red;
+	 background-color: white;
+	 font-family: "Lucida Grande", "Arial", sans-serif;
+	 font-size: 10px;
+	 font-weight: bold;
+	 text-align: center;
+	 width: 40px;     
+	 border: 2px solid black;
+	 white-space: nowrap;
+}

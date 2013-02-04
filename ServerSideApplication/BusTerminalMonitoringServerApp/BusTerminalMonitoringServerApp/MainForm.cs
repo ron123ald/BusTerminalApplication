@@ -1,5 +1,6 @@
 ﻿namespace BusTerminalMonitoringServerApp
 {
+    using System;
     using System.Collections.Generic;
     using System.Configuration;
     using System.Net;
@@ -150,40 +151,49 @@
         /// <param name="e"></param>
         private void Main_Load(object sender, System.EventArgs e)
         {
-            #region Serial Connection Initialization
-            /// Instanciate serial connection
-            this.serial = new SerialConnection(ConfigurationManager.AppSettings.Get("PORTNAME"), 9600, System.IO.Ports.Parity.None, System.IO.Ports.StopBits.One);
-            /// Initialize NewMessageEvent
-            this.serial.NewMessageEvent += new NewMessageEventHandler(serial_NewMessageEvent);
-            this.serial.ErrorEvent += new ErrorEventHandler(serial_ErrorEvent);
-            /// Start Serial Connection
-            bool flag = this.serial.EstablistConnection();
-            #endregion
-
-            #region Server Connection Initialization
-            /// if serial starts okay then flag returns true.
-            /// then continue
-            if (flag)
+            try
             {
-                /// Create new instance of ServerConnection 
-                /// by passing IPAddress.Any and Port 8081
-                this.connection = new ServerConnection(IPAddress.Any, 8000);
-                this.connection.EstablishConnection();
-                /// Initialize EventHandler "NewRequestConnectionEvent" to subscribe.
-                this.connection.NewRequestConnectionEvent += new RequestConnectionEventHandler(connection_NewRequestConnectionEvent);
+                #region Serial Connection Initialization
+                /// Instanciate serial connection
+                this.serial = new SerialConnection(ConfigurationManager.AppSettings.Get("PORTNAME"), 9600, System.IO.Ports.Parity.None, System.IO.Ports.StopBits.One);
+                /// Initialize NewMessageEvent
+                this.serial.NewMessageEvent += new NewMessageEventHandler(serial_NewMessageEvent);
+                this.serial.ErrorEvent += new ErrorEventHandler(serial_ErrorEvent);
+                /// Start Serial Connection
+                bool flag = this.serial.EstablistConnection();
+                #endregion
 
-                ServerUtility.Log(this.ServerLogBox, string.Format("Server is running @{0}:8000", IPAddress.Any.ToString()));
-            #endregion
+                #region Server Connection Initialization
+                /// if serial starts okay then flag returns true.
+                /// then continue
+                if (flag)
+                {
+                    /// Create new instance of ServerConnection 
+                    /// by passing IPAddress.Any and Port 8081
+                    this.connection = new ServerConnection(IPAddress.Any, 8000);
+                    this.connection.EstablishConnection();
+                    /// Initialize EventHandler "NewRequestConnectionEvent" to subscribe.
+                    this.connection.NewRequestConnectionEvent += new RequestConnectionEventHandler(connection_NewRequestConnectionEvent);
+
+                    ServerUtility.Log(this.ServerLogBox, string.Format("Server is running @{0}:8000", IPAddress.Any.ToString()));
+                #endregion
 
                 #region Database Context Initialization
                 this.dbcontext = new BusDatabaseContext();
                 this.dbcontext.EstablishConnection();
+                }
+                #endregion
+
+                #region Logger
+                this.logger = Logger.InstanceContext;
+                this.logger.Initialize();
                 #endregion
             }
-            #region Logger
-            this.logger = Logger.InstanceContext;
-            this.logger.Initialize();
-            #endregion
+            catch (System.Exception ex)
+            {
+                MessageBox.Show(this, ex.Message, "Error Occured", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                this.Close();
+            }
         }
         /// <summary>
         /// 
@@ -228,8 +238,8 @@
         /// <param name="e"></param>
         private void btnPrint_Click(object sender, System.EventArgs e)
         {
-            string Command = string.Format("SELECT * FROM tbl_bus WHERE CreateDate >= '{0}' and CreateDate <= '{1}'", this.StartDateTime.Value.ToString("MM/dd/yy 00:00:00"), this.EndDateTime.Value.ToString("MM/dd/yy 00:00:00"));
-            string document = (dbcontext.Command(Command)).GenerateDocument();
+            string Command = string.Format("SELECT * FROM tbl_bus WHERE CreateDate >= '{0}' and CreateDate <= '{1}'", this.StartDateTime.Value.ToString("yy-MM-dd 00:00:00"), this.EndDateTime.Value.ToString("yy-MM-dd hh:mm:ss"));
+            string document = (dbcontext.Command(Command)).GenerateDocument(this.StartDateTime.Value.ToString("yy-MM-dd 00:00:00"), this.EndDateTime.Value.ToString("yy-MM-dd hh:mm:ss"));
 
             if (!string.IsNullOrEmpty(document))
             {
@@ -256,9 +266,12 @@
                 /// remove client from the collection
                 (ServerCollection.InstanceContext).Remove(client);
             }
-            this.connection.Dispose();
-            this.serial.Dispose();
-            this.dbcontext.Dispose();
+            if (this.connection != null)
+                this.connection.Dispose();
+            if (this.serial != null)
+                this.serial.Dispose();
+            if (this.dbcontext!= null)
+                this.dbcontext.Dispose();
             /// close all the clients that are connected with the server
             base.OnClosing(e);
         }

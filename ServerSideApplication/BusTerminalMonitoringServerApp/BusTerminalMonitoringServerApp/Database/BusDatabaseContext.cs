@@ -96,7 +96,8 @@
                                 Longitude = reader["bus_longitude"].ToString(),
                                 Occupied = reader["bus_occupied"].ToString(),
                                 Vacancy = reader["bus_vacant"].ToString(),
-                                DateTime = reader["CreateDate"].ToString()
+                                DateTime = reader["CreateDate"].ToString(),
+                                ID = reader["bus_id"].ToString()
                             });
                         }
                     }
@@ -134,14 +135,14 @@
         {
             if (bus != null)
             {
-                string insert_statement = string.Format("INSERT INTO tbl_bus (bus_number, bus_capacity, bus_details, bus_lattitude, bus_longitude, bus_occupied, bus_vacant) VALUES('{0}',{1},'{2}','{3}','{4}',{5},{6})"
+                string insert_statement = string.Format("INSERT INTO tbl_bus (bus_number, bus_capacity, bus_details, bus_lattitude, bus_longitude, bus_occupied, bus_vacant, CreateDate) VALUES('{0}',{1},'{2}','{3}','{4}',{5},{6},'{7}')"
                     , bus.BusNumber
                     , bus.Capacity
                     , bus.Details
                     , bus.Lattitude
                     , bus.Longitude
                     , bus.Occupied
-                    , bus.Vacancy);
+                    , bus.Vacancy, DateTime.Now.ToString("yy-MM-dd hh:mm:ss"));
                 using (MySqlCommand command = new MySqlCommand(insert_statement, this.connection))
                 {
                     using (MySqlDataReader reader = command.ExecuteReader())
