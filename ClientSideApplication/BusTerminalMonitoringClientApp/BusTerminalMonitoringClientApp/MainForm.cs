@@ -1,5 +1,6 @@
 ﻿namespace BusTerminalMonitoringClientApp
 {
+    using System.Web;
     using System.Windows.Forms;
     using BusTerminalMonitoringClientApp.Connection;
 
@@ -94,7 +95,7 @@
             this.Invoke((MethodInvoker)delegate
             {
                 /// Load url whenever e is not equal to TargetURL
-                if (string.Compare(this.WebViewControl.Source.AbsoluteUri, e.ToString(), true) != 0)
+                if (!this.WebViewControl.Source.OriginalString.Equals(e.ToString()))
                     this.WebViewControl.LoadURL(e.ToString()); 
             });
         }

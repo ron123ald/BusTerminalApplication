@@ -1,0 +1,102 @@
+[ 02-04-13 ] : New Client Connected 89532fffb8ce473c8d3ad3fc309f3fdf
+[ 02-04-13 ] : 
++CMGR: "REC UNREAD","+639322017913",,"13/02/04,11:16:38+32"
+(8001&10.1234&123&12&18&30&Bus is na buang!)
+
+OK
+
+[ 02-04-13 ] : Send to Clients : bus_number=8001;lattitude=10.1234;longitude=123;capacity=12;vacancy=18;occupied=30;details=Bus is na buang!;action=Transmit
+[ 02-04-13 ] : 
++CMGR: "REC UNREAD","+639322017913",,"13/02/04,11:18:59+32"
+(8001&10.1234&123&12&18&30&Bus is na buang!)
+
+OK
+
+[ 02-04-13 ] : Send to Clients : bus_number=8001;lattitude=10.1234;longitude=123;capacity=12;vacancy=18;occupied=30;details=Bus is na buang!;action=Transmit
+[ 02-04-13 ] : 
++CMGR: "REC UNREAD","+639322017913",,"13/02/04,11:20:09+32"
+(8001&10.1234&123&12&18&30&Bus is na buang!)
+
+OK
+
+[ 02-04-13 ] : Send to Clients : bus_number=8001;lattitude=10.1234;longitude=123;capacity=12;vacancy=18;occupied=30;details=Bus is na buang!;action=Transmit
+[ 02-04-13 ] : New Client Connected 51b83679c6b14d37a124a078a9ea8028
+[ 02-04-13 ] : 
++CMGR: "REC UNREAD","+639322017913",,"13/02/04,11:23:18+32"
+(8001&10.1234&123&12&18&30&Bus is na buang!)
+
+OK
+
+[ 02-04-13 ] : Client Disconnected 89532fffb8ce473c8d3ad3fc309f3fdf
+[ 02-04-13 ] : 
++CMGR: "REC UNREAD","+639322017913",,"13/02/04,11:23:55+32"
+(8001&10.1234&123&12&18&30&Bus is na buang!)
+
+OK
+
+[ 02-04-13 ] : Send to Clients : bus_number=8001;lattitude=10.1234;longitude=123;capacity=12;vacancy=18;occupied=30;details=Bus is na buang!;action=Transmit
+[ 02-04-13 ] : 
++CMGR: "REC UNREAD","+639322017913",,"13/02/04,11:24:42+32"
+(8001&10.1234&123&12&18&30&Bus is na buang!)
+
+OK
+
+[ 02-04-13 ] : Send to Clients : bus_number=8001;lattitude=10.1234;longitude=123;capacity=12;vacancy=18;occupied=30;details=Bus is na buang!;action=Transmit
+[ 02-04-13 ] : New Client Connected 4edea956391b4f26bfaee8b156452e55
+[ 02-04-13 ] : 
++CMGR: "REC UNREAD","+639322017913",,"13/02/04,11:28:58+32"
+(8001&10.1234&123&12&18&30&Bus is na buang!)
+
+OK
+
+[ 02-04-13 ] : Send to Clients : bus_number=8001;lattitude=10.1234;longitude=123;capacity=12;vacancy=18;occupied=30;details=Bus is na buang!;action=Transmit
+[ 02-04-13 ] : Client Disconnected 51b83679c6b14d37a124a078a9ea8028
+[ 02-04-13 ] : 
++CMGR: "REC UNREAD","+639322017913",,"13/02/04,11:29:29+32"
+(8001&10.1234&123&12&18&30&Bus is na buang!)
+
+OK
+
+[ 02-04-13 ] : Send to Clients : bus_number=8001;lattitude=10.1234;longitude=123;capacity=12;vacancy=18;occupied=30;details=Bus is na buang!;action=Transmit
+[ 02-04-13 ] : 
++CMGR: "REC UNREAD","+639322017913",,"13/02/04,11:30:00+32"
+(8001&10.1234&123&12&18&30&Bus is na buang!)
+
+OK
+
+[ 02-04-13 ] : Send to Clients : bus_number=8001;lattitude=10.1234;longitude=123;capacity=12;vacancy=18;occupied=30;details=Bus is na buang!;action=Transmit
+[ 02-04-13 ] : New Client Connected cca75ebbf700462fb0b9963f7cf417dd
+[ 02-04-13 ] : 
++CMGR: "REC UNREAD","+639322017913",,"13/02/04,11:30:18+32"
+(8001&10.1234&123&12&18&30&Bus is na buang!)
+
+OK
+
+[ 02-04-13 ] : Send to Clients : bus_number=8001;lattitude=10.1234;longitude=123;capacity=12;vacancy=18;occupied=30;details=Bus is na buang!;action=Transmit
+[ 02-04-13 ] : Client Disconnected 4edea956391b4f26bfaee8b156452e55
+[ 02-04-13 ] : 
++CMGR: "REC UNREAD","+639322017913",,"13/02/04,11:31:46+32"
+(8001&10.1234&123&12&18&30&Bus is na buang!)
+
+OK
+
+[ 02-04-13 ] : Send to Clients : bus_number=8001;lattitude=10.1234;longitude=123;capacity=12;vacancy=18;occupied=30;details=Bus is na buang!;action=Transmit
+[ 02-04-13 ] : 
++CMGR: "REC UNREAD","+639322017913",,"13/02/04,11:32:41+32"
+(8001&10.1234&123&12&18&30&Bus is na buang!)
+
+OK
+
+^RSSI:16
+
+[ 02-04-13 ] : Send to Clients : bus_number=8001;lattitude=10.1234;longitude=123;capacity=12;vacancy=18;occupied=30;details=Bus is na buang!;action=Transmit
+[ 02-04-13 ] : Client Disconnected cca75ebbf700462fb0b9963f7cf417dd
+[ 02-04-13 ] : New Client Connected a6dd9b2d418d498db3b023e2e679af42
+[ 02-04-13 ] : 
++CMGR: "REC UNREAD","+639322017913",,"13/02/04,11:58:03+32"
+(8001&10.1234&123&12&18&30&Bus is na buang!)
+
+OK
+
+[ 02-04-13 ] : Send to Clients : bus_number=8001;lattitude=10.1234;longitude=123;capacity=12;vacancy=18;occupied=30;details=Bus is na buang!;action=Transmit
+[ 02-04-13 ] : Client Disconnected a6dd9b2d418d498db3b023e2e679af42

@@ -117,31 +117,34 @@ function InitializeMapMarker1(busNumber, lattitude, longitude){
        labelClass: "labels", // the CSS class for the label
        labelStyle: {opacity: 0.75}
      });
-
-	/*
-
-	var infowindow1 = new google.maps.InfoWindow();
-	infowindow1.setContent(busNumber);
-	infowindow1.open(map, marker1);
-	*/
 }
 
-function InitializeMapMarker2(lattitude, longitude){
+function InitializeMapMarker2(busNumber, lattitude, longitude){
   
-	marker2 = new google.maps.Marker({
-		position: new google.maps.LatLng(lattitude, longitude),
-		map: map,
-		title: "Bus"
-	});
+	marker2 = new MarkerWithLabel({
+       position: new google.maps.LatLng(lattitude, longitude),
+       draggable: true,
+       raiseOnDrag: true,
+       map: map,
+       labelContent: busNumber,
+       labelAnchor: new google.maps.Point(22, 0),
+       labelClass: "labels", // the CSS class for the label
+       labelStyle: {opacity: 0.75}
+     });
 }
 
-function InitializeMapMarker3(lattitude, longitude){
+function InitializeMapMarker3(busNumber, lattitude, longitude){
   
-	marker3 = new google.maps.Marker({
-		position: new google.maps.LatLng(lattitude, longitude),
-		map: map,
-		title: "Bus"
-	});
+	marker3 = new MarkerWithLabel({
+       position: new google.maps.LatLng(lattitude, longitude),
+       draggable: true,
+       raiseOnDrag: true,
+       map: map,
+       labelContent: busNumber,
+       labelAnchor: new google.maps.Point(22, 0),
+       labelClass: "labels", // the CSS class for the label
+       labelStyle: {opacity: 0.75}
+     });
 }
 
 function InitializeMapMarkerInformation(marker, busInfo){
@@ -184,10 +187,10 @@ function setBusNumber(busnumber, lattitude, longitude){
 	} else if(bus2 == undefined || bus2 == null || bus2 == ''){
 		bus2 = busnumber;
 		// initialize marker2
-		InitializeMapMarker2(lattitude, longitude);
+		InitializeMapMarker2(busnumber, lattitude, longitude);
 	} else if(bus3 == undefined || bus3 == null || bus3 == ''){
 		bus3 = busnumber;
 		// initialize marker3
-		InitializeMapMarker3(lattitude, longitude);
+		InitializeMapMarker3(busnumber, lattitude, longitude);
 	}
 }
